@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginLeftRight">16dp</dimen>
+    <dimen name="marginBottom">55dp</dimen>
+    <dimen name="_35_5dp">35.5dp</dimen>
+    <dimen name="marginButtons">10dp</dimen>
+    <dimen name="spaceBetween">4dp</dimen>
+    <dimen name="marginStartRed">18dp</dimen>
+    <dimen name="paddingEndRed">8dp</dimen>
+</resources>
