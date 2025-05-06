@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4FAFF"
+    android:background="@color/main_color"
     tools:context=".MainActivity">
 
     <TextView
@@ -24,8 +25,8 @@
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginLeftRight"
-        android:layout_marginEnd="@dimen/marginLeftRight"
+        android:layout_marginStart="@dimen/main_space_16"
+        android:layout_marginEnd="@dimen/main_space_16"
         android:layout_marginBottom="@dimen/marginBottom"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,8 +34,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHello"
-        app:layout_constraintVertical_bias="1.0"
-        android:weightSum="2">
+        app:layout_constraintVertical_bias="1.0">
 
         <Button
             android:id="@+id/btnCategory"
@@ -42,10 +42,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rounded_blue_button"
-            android:backgroundTint="@color/blue"
-            android:paddingStart="@dimen/_35_5dp"
+            android:paddingStart="@dimen/paddingStartEnd"
             android:paddingTop="@dimen/marginButtons"
-            android:paddingEnd="@dimen/_35_5dp"
+            android:paddingEnd="@dimen/paddingStartEnd"
             android:paddingBottom="@dimen/marginButtons"
             android:layout_marginEnd="@dimen/spaceBetween"
             android:text="@string/text_category"
@@ -57,13 +56,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rounded_red_button"
+            android:backgroundTint="@color/red"
             android:paddingStart="@dimen/marginStartRed"
             android:paddingTop="@dimen/marginButtons"
-            android:paddingEnd="@dimen/paddingEndRed"
+            android:paddingEnd="@dimen/main_space_half_16"
             android:paddingBottom="@dimen/marginButtons"
             android:text="@string/text_favorites"
             app:icon="@drawable/ic_heart_empty"
-            app:iconGravity="end"
+            app:iconGravity="textEnd"
             android:layout_weight="1" />
 
     </LinearLayout>

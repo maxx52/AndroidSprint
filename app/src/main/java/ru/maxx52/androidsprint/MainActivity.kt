@@ -2,7 +2,6 @@ package ru.maxx52.androidsprint
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import ru.maxx52.androidsprint.databinding.ActivityMainBinding
 
@@ -15,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
     }
 }
