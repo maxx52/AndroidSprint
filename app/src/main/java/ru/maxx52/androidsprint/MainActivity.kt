@@ -3,6 +3,7 @@ package ru.maxx52.androidsprint
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import ru.maxx52.androidsprint.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,10 +18,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.apply {
+            supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add(R.id.fragmentListCategories, FragmentListCategories())
+                add(R.id.mainContainer, FragmentListCategories())
+            }
+        }
+
+        with(binding) {
+            btnCategory.setOnClickListener {
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace(R.id.mainContainer, FragmentListCategories())
+                }
+            }
+            btnFavorites.setOnClickListener {
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace(R.id.mainContainer, FavoritesFragment())
+                }
             }
         }
     }

@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white"
-    tools:context=".FragmentListCategories">
+    android:background="@color/white"
+    tools:context=".FavoritesFragment">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentListCategories"
+        android:id="@+id/fragmentFavorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -16,6 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/text_fragment_of_categories" />
+        android:text="@string/text_fragment_of_favorites" />
 
 </FrameLayout>
