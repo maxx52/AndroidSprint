@@ -3,4 +3,8 @@
     <string name="text_category">Категории</string>
     <string name="text_icon_heart_empty">Icon heart empty</string>
     <string name="text_favorites">Избранное</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_categories_text">Fragment Categories</string>
+    <string name="text_fragment_of_categories">Fragment of Categories</string>
 </resources>
