@@ -11,7 +11,8 @@ class FavoritesFragment : Fragment() {
     private var btnCategory: String? = null
     private var btnFavorites: String? = null
     private var _binding: FragmentFavoritesBinding? = null
-    private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
+    private val binding
+        get() = _binding ?: throw IllegalStateException("View is not initialized")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
