@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="one_pixel">1dp</dimen>
+    <dimen name="main_text_size">14sp</dimen>
+    <dimen name="main_space_16">16dp</dimen>
+    <dimen name="marginBottom">55dp</dimen>
+    <dimen name="paddingStartEnd">35.5dp</dimen>
+    <dimen name="marginButtons">10dp</dimen>
+    <dimen name="spaceBetween">4dp</dimen>
+    <dimen name="marginStartRed">18dp</dimen>
+    <dimen name="main_space_half_16">8dp</dimen>
+    <dimen name="main_space_double_16">32dp</dimen>
+    <dimen name="button_width">164dp</dimen>
+</resources>
