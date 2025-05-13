@@ -1,6 +1,5 @@
 package ru.maxx52.androidsprint
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
@@ -11,7 +10,6 @@ class MainActivity : AppCompatActivity() {
     private val binding
         get() = _binding ?: throw IllegalStateException("Binding не доступен или null")
 
-    @SuppressLint("CommitTransaction")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
