@@ -33,9 +33,4 @@ class FavoritesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    companion object {
-        private const val ARG_CATEGORY = "btnCategory"
-        private const val ARG_FAVORITES = "btnFavorites"
-    }
 }
