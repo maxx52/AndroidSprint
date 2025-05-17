@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
 
+
 class FragmentListCategories : Fragment() {
     private var _binding: FragmentListCategoriesBinding? = null
     private val binding
