@@ -9,6 +9,21 @@
     android:background="@color/main_color"
     tools:context=".MainActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mainContainer"
+        android:name="ru.maxx52.androidsprint.FragmentListCategories"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_0dp"
+        android:layout_marginBottom="@dimen/main_space_half_16"
+        android:layout_marginStart="@dimen/main_space_16"
+        android:layout_marginEnd="@dimen/main_space_16"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bottom_buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.918" />
+
     <LinearLayout
         android:id="@+id/layout_bottom_buttons"
         style="?android:attr/buttonBarStyle"
@@ -57,20 +72,4 @@
             android:layout_weight="1" />
 
     </LinearLayout>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/mainContainer"
-        android:name="ru.maxx52.androidsprint.FragmentListCategories"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_0dp"
-        android:layout_marginBottom="@dimen/main_space_half_16"
-        android:layout_marginStart="@dimen/main_space_16"
-        android:layout_marginEnd="@dimen/main_space_16"
-        app:layout_constraintBottom_toTopOf="@+id/layout_bottom_buttons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
