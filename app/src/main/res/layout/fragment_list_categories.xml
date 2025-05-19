@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,39 +13,50 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="224dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_categories"
+        android:layout_marginStart="@dimen/_0dp"
+        android:layout_marginEnd="@dimen/_0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/header_height"
-            android:background="@drawable/bg_categories">
-
-            <TextView
-                android:id="@+id/tvTitleCategories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/StyleTitle20"
-                android:background="@drawable/shape_rounded_white_bg"
-                android:padding="@dimen/margin_10"
-                android:layout_marginStart="@dimen/main_space_16"
-                android:layout_marginBottom="@dimen/main_space_16"
-                android:text="@string/text_category"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.921" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvTitleCategories"
+            style="@style/StyleTitle20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_space_16"
+            android:layout_marginBottom="@dimen/main_space_16"
+            android:layout_marginTop="164dp"
+            android:background="@drawable/shape_rounded_white_bg"
+            android:padding="@dimen/margin_10"
+            android:text="@string/text_category"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.921" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvFragmentListCategories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/text_fragment_of_categories" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategories"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_0dp"
+        android:layout_marginStart="@dimen/main_space_half_16"
+        android:layout_marginEnd="@dimen/main_space_half_16"
+        android:layout_marginTop="@dimen/main_space_half_16"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:spanCount="2"
+        tools:itemCount="6"
+        tools:itemLayout="@layout/item_category"
+        tools:listitem="@layout/item_category" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
