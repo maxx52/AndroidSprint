@@ -17,6 +17,5 @@
     <dimen name="height_of_image_category">130dp</dimen>
     <dimen name="text_size_header">20sp</dimen>
     <dimen name="header_height">224dp</dimen>
-    <dimen name="card_width">156dp</dimen>
-    <dimen name="card_height">220dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
 </resources>
