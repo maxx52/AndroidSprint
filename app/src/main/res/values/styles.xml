@@ -12,6 +12,16 @@
         <item name="android:textColor">@color/blue</item>
     </style>
 
+    <style name="StyleTitle14.Dark" parent="StyleTitle14">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="StyleTitle12" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+
     <style name="StyleNavButton" parent="Widget.Material3.Button">
         <item name="android:textAppearance">@style/StyleTitle14</item>
         <item name="cornerRadius">@dimen/main_space_half_16</item>
