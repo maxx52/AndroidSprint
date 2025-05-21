@@ -6,4 +6,8 @@
     <string name="fragment_categories_text">Fragment Categories</string>
     <string name="text_fragment_of_categories">Fragment of Categories</string>
     <string name="text_fragment_of_favorites">Fragment of Favorites</string>
+    <string name="image_of_categories">Image of categories</string>
+    <string name="image_of_category_item">Image of category item</string>
+    <string name="burgers">Бургеры</string>
+    <string name="burger_description">Рецепты всех популярных видов бургеров</string>
 </resources>
