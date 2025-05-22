@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
-
+import ru.maxx52.androidsprint.entities.STUB
 
 class FragmentListCategories : Fragment() {
     private var _binding: FragmentListCategoriesBinding? = null
@@ -21,8 +21,18 @@ class FragmentListCategories : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecycler()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initRecycler() {
+        val categoriesAdapter = CategoriesListAdapter(STUB.getCategories())
+        binding.rvCategories.adapter = categoriesAdapter
     }
 }
