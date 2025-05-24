@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/main_space_double_16"
     android:backgroundTint="@color/white"
     android:orientation="vertical"
     tools:context=".FragmentListCategories">
@@ -17,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/image_of_categories"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             android:src="@drawable/bg_categories"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
