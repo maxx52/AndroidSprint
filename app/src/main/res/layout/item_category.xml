@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/card_height"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="@dimen/main_space_half_16"
     android:layout_marginEnd="@dimen/main_space_half_16"
     android:layout_marginTop="@dimen/main_space_16"
+    android:background="@color/white"
+    android:foreground="?selectableItemBackground"
     android:clickable="true"
+    android:focusable="true"
     app:cardCornerRadius="@dimen/main_space_half_16">
 
     <LinearLayout
@@ -20,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_of_image_category"
             android:contentDescription="@string/image_of_category_item"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            tools:src="@drawable/bg_categories"/>
 
         <TextView
             android:id="@+id/tvTitleCategory"
@@ -28,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/main_space_half_16"
-            android:layout_marginStart="@dimen/main_space_half_16" />
+            android:layout_marginStart="@dimen/main_space_half_16"
+            tools:text="@string/burgers"/>
 
         <TextView
             android:id="@+id/tvCategoryDescription"
@@ -36,7 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/main_space_half_16"
-            android:layout_marginStart="@dimen/main_space_half_16"/>
+            android:layout_marginStart="@dimen/main_space_half_16"
+            tools:text="@string/burger_description"/>
 
     </LinearLayout>
 
