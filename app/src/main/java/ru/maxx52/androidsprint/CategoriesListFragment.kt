@@ -55,7 +55,7 @@ class FragmentListCategories : Fragment() {
         bundle.putString(ARG_CATEGORY_IMAGE_URL, categoryImageUrl)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.mainContainer, RecipesListFragment(), bundle.toString())
+            replace(R.id.mainContainer, RecipesListFragment())
         }
     }
 }
