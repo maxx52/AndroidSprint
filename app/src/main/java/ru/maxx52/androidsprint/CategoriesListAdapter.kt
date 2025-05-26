@@ -12,6 +12,14 @@ import ru.maxx52.androidsprint.entities.Category
 class CategoriesListAdapter(private val dataSet: List<Category>):
     RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
+    var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) { itemClickListener = listener }
+
+    interface OnItemClickListener {
+        fun onItemClick()
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.ivCategoryImage)
         val titleTextView: TextView = view.findViewById(R.id.tvTitleCategory)
@@ -35,6 +43,10 @@ class CategoriesListAdapter(private val dataSet: List<Category>):
             viewHolder.imageView.setImageDrawable(drawable)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+
+        viewHolder.itemView.setOnClickListener {
+            itemClickListener?.onItemClick()
         }
     }
 
