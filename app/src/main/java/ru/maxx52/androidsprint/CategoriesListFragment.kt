@@ -9,6 +9,10 @@ import androidx.fragment.app.commit
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
 import ru.maxx52.androidsprint.entities.STUB
 
+const val ARG_CATEGORY_IMAGE_URL = "categoryImageUrl"
+const val ARG_CATEGORY_NAME = "categoryName"
+const val ARG_CATEGORY_ID = "categoryId"
+
 class FragmentListCategories : Fragment() {
     private var _binding: FragmentListCategoriesBinding? = null
     private val binding
@@ -37,14 +41,21 @@ class FragmentListCategories : Fragment() {
         binding.rvCategories.adapter = categoriesAdapter
 
         categoriesAdapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
-            override fun onItemClick() = openRecipesByCategoryId()
+            override fun onItemClick(categoryId: Int) = openRecipesByCategoryId()
         })
     }
 
     fun openRecipesByCategoryId() {
+        val categoryId = STUB.getCategories()[0].id
+        val categoryName = STUB.getCategories()[0].title
+        val categoryImageUrl = STUB.getCategories()[0].imageUrl
+        val bundle = Bundle()
+        bundle.putInt(ARG_CATEGORY_ID, categoryId)
+        bundle.putString(ARG_CATEGORY_NAME, categoryName)
+        bundle.putString(ARG_CATEGORY_IMAGE_URL, categoryImageUrl)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.mainContainer, RecipesListFragment())
+            replace(R.id.mainContainer, RecipesListFragment(), bundle.toString())
         }
     }
 }
