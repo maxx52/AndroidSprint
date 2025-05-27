@@ -1,6 +1,9 @@
 package ru.maxx52.androidsprint
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +12,10 @@ import androidx.fragment.app.commit
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.entities.STUB
 
-const val ARG_RECIPE_ID = "recipeId"
+const val ARG_RECIPE = "recipeId"
 
-class RecipesListFragment : Fragment() {
+@SuppressLint("ParcelCreator")
+class RecipesListFragment : Fragment(), Parcelable {
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
 
@@ -50,10 +54,12 @@ class RecipesListFragment : Fragment() {
     }
 
     fun openRecipeByRecipeId(recipeId: Int) {
+        val recipe = STUB.getRecipesByCategoryId(categoryId ?: -1).find { it.id == recipeId }
+        val bundle = Bundle().apply {
+            putInt(ARG_RECIPE, recipe?.id ?: 0)
+        }
         val recipeFragment = RecipeFragment().apply {
-            arguments = Bundle().apply {
-                putInt(ARG_RECIPE_ID, recipeId)
-            }
+            arguments = bundle
         }
         parentFragmentManager.commit {
             setReorderingAllowed(true)
@@ -64,5 +70,14 @@ class RecipesListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun describeContents(): Int {
+        // TODO("Not yet implemented")
+        return TODO("Provide the return value")
+    }
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        // TODO("Not yet implemented")
     }
 }
