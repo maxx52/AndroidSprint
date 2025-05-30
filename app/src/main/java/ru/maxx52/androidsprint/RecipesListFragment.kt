@@ -18,6 +18,7 @@ class RecipesListFragment : Fragment() {
     private var categoryId: Int? = null
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
+    private var recipeId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +33,7 @@ class RecipesListFragment : Fragment() {
 
         arguments?.let {
             categoryId = it.getInt(ARG_CATEGORY_ID, -1)
+            recipeId = it.getInt(ARG_RECIPE_ID, -1)
             categoryName = it.getString(ARG_CATEGORY_NAME) ?: "Без названия"
             categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
         }
@@ -44,15 +46,15 @@ class RecipesListFragment : Fragment() {
 
         categoriesAdapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
             override fun onItemClick(categoryId: Int) {
-                openRecipeByRecipeId(categoryId)
+                openRecipeByRecipeId(recipeId)
             }
         })
     }
 
-    fun openRecipeByRecipeId(recipeId: Int) {
+    fun openRecipeByRecipeId(recipeId: Int?) {
         val recipeFragment = RecipeFragment().apply {
             arguments = Bundle().apply {
-                putInt(ARG_RECIPE_ID, recipeId)
+                recipeId?.let { putInt(ARG_RECIPE_ID, it) }
             }
         }
         parentFragmentManager.commit {
