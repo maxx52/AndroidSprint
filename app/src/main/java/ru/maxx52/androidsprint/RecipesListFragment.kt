@@ -10,15 +10,16 @@ import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.entities.STUB
 
 const val ARG_RECIPE_ID = "recipeId"
+const val ARG_RECIPE_NAME = "recipeName"
+const val ARG_RECIPE_IMAGE_URL = "recipeImageUrl"
 
 class RecipesListFragment : Fragment() {
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
 
+    private var recipeName: String? = null
+    private var recipeImageUrl: String? = null
     private var categoryId: Int? = null
-    private var categoryName: String? = null
-    private var categoryImageUrl: String? = null
-    private var recipeId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,33 +34,31 @@ class RecipesListFragment : Fragment() {
 
         arguments?.let {
             categoryId = it.getInt(ARG_CATEGORY_ID, -1)
-            recipeId = it.getInt(ARG_RECIPE_ID, -1)
-            categoryName = it.getString(ARG_CATEGORY_NAME) ?: "Без названия"
-            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
+            recipeName = it.getString(ARG_RECIPE_NAME) ?: "Без названия"
+            recipeImageUrl = it.getString(ARG_RECIPE_IMAGE_URL) ?: ""
         }
         initRecycler()
     }
 
     private fun initRecycler() {
-        val categoriesAdapter = CategoriesListAdapter(STUB.getCategories())
-        binding.rvRecipes.adapter = categoriesAdapter
+        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId(categoryId))
+        binding.rvRecipes.adapter = recipesAdapter
 
-        categoriesAdapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
-            override fun onItemClick(categoryId: Int) {
+        recipesAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
+            override fun onItemClick(recipeId: Int) {
                 openRecipeByRecipeId(recipeId)
             }
         })
     }
 
-    fun openRecipeByRecipeId(recipeId: Int?) {
-        val recipeFragment = RecipeFragment().apply {
-            arguments = Bundle().apply {
-                recipeId?.let { putInt(ARG_RECIPE_ID, it) }
-            }
-        }
+    fun openRecipeByRecipeId(recipeId: Int) {
+        val bundle = Bundle()
+        bundle.putInt(ARG_RECIPE_ID, recipeId)
+        bundle.putString(ARG_RECIPE_NAME, recipeName)
+        bundle.putString(ARG_RECIPE_IMAGE_URL, recipeImageUrl)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.mainContainer, recipeFragment)
+            replace(R.id.mainContainer, RecipeFragment())
         }
     }
 
