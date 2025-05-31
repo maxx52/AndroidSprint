@@ -12,6 +12,7 @@
     <dimen name="main_space_double_16">32dp</dimen>
     <dimen name="button_width">164dp</dimen>
     <dimen name="_0dp">0dp</dimen>
+    <dimen name="_6dp">6dp</dimen>
     <dimen name="card_width">156dp</dimen>
     <dimen name="card_height">220dp</dimen>
     <dimen name="height_of_image_category">130dp</dimen>
@@ -20,4 +21,6 @@
     <dimen name="margin_10">10dp</dimen>
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="margin_top_description">162dp</dimen>
+    <dimen name="height_card_recipe">132dp</dimen>
+    <dimen name="height_card_recipe_image">100dp</dimen>
 </resources>
