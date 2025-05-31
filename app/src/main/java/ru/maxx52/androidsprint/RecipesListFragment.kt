@@ -19,7 +19,6 @@ class RecipesListFragment : Fragment() {
 
     private var recipeName: String? = null
     private var recipeImageUrl: String? = null
-    private var categoryId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +32,6 @@ class RecipesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            categoryId = it.getInt(ARG_CATEGORY_ID, -1)
             recipeName = it.getString(ARG_RECIPE_NAME) ?: "Без названия"
             recipeImageUrl = it.getString(ARG_RECIPE_IMAGE_URL) ?: ""
         }
@@ -41,7 +39,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId(categoryId))
+        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId())
         binding.rvRecipes.adapter = recipesAdapter
 
         recipesAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
