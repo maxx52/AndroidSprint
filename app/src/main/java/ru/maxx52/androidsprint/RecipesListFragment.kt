@@ -1,5 +1,6 @@
 package ru.maxx52.androidsprint
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,15 +11,14 @@ import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.entities.STUB
 
 const val ARG_RECIPE_ID = "recipeId"
-const val ARG_RECIPE_NAME = "recipeName"
-const val ARG_RECIPE_IMAGE_URL = "recipeImageUrl"
 
 class RecipesListFragment : Fragment() {
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
 
-    private var recipeName: String? = null
-    private var recipeImageUrl: String? = null
+    private var categoryName: String? = null
+    private var categoryImageUrl: String? = null
+    private var categoryId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,14 +32,20 @@ class RecipesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            recipeName = it.getString(ARG_RECIPE_NAME) ?: "Без названия"
-            recipeImageUrl = it.getString(ARG_RECIPE_IMAGE_URL) ?: ""
+            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
+            categoryId = it.getInt(ARG_CATEGORY_ID)
+            categoryName = it.getString(ARG_CATEGORY_NAME) ?: "Без названия"
         }
+        val drawable = Drawable.createFromStream(categoryImageUrl?.let {
+            binding.ivRecipe.context.assets.open(it)
+        }, null)
+        binding.tvTitleRecipe.text = categoryName
+        binding.ivRecipe.setImageDrawable(drawable)
         initRecycler()
     }
 
     private fun initRecycler() {
-        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId())
+        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId(categoryId))
         binding.rvRecipes.adapter = recipesAdapter
 
         recipesAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
@@ -52,8 +58,6 @@ class RecipesListFragment : Fragment() {
     fun openRecipeByRecipeId(recipeId: Int) {
         val bundle = Bundle()
         bundle.putInt(ARG_RECIPE_ID, recipeId)
-        bundle.putString(ARG_RECIPE_NAME, recipeName)
-        bundle.putString(ARG_RECIPE_IMAGE_URL, recipeImageUrl)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             replace(R.id.mainContainer, RecipeFragment())

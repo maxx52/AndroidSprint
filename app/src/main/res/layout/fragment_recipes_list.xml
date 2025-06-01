@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/text_image_of_recipe"
             android:scaleType="centerCrop"
-            tools:src="@drawable/bg_categories"
+            tools:src="@drawable/bcg_recipes_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
