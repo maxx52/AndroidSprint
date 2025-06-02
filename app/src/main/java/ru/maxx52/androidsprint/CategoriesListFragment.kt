@@ -15,8 +15,7 @@ const val ARG_CATEGORY_ID = "categoryId"
 
 class FragmentListCategories : Fragment() {
     private var _binding: FragmentListCategoriesBinding? = null
-    private val binding
-        get() = _binding ?: throw IllegalStateException("View is not initialized")
+    private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,21 +40,27 @@ class FragmentListCategories : Fragment() {
         binding.rvCategories.adapter = categoriesAdapter
 
         categoriesAdapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
-            override fun onItemClick(categoryId: Int) = openRecipesByCategoryId()
+            override fun onItemClick(categoryId: Int) {
+                openRecipesByCategoryId(categoryId)
+            }
         })
     }
 
-    fun openRecipesByCategoryId() {
-        val categoryId = STUB.getCategories()[0].id
-        val categoryName = STUB.getCategories()[0].title
-        val categoryImageUrl = STUB.getCategories()[0].imageUrl
-        val bundle = Bundle()
-        bundle.putInt(ARG_CATEGORY_ID, categoryId)
-        bundle.putString(ARG_CATEGORY_NAME, categoryName)
-        bundle.putString(ARG_CATEGORY_IMAGE_URL, categoryImageUrl)
+    fun openRecipesByCategoryId(categoryId: Int) {
+        val category = STUB.getCategories().find { it.id == categoryId } ?: return
+        val bundle = Bundle().apply {
+            putInt(ARG_CATEGORY_ID, category.id)
+            putString(ARG_CATEGORY_NAME, category.title)
+            putString(ARG_CATEGORY_IMAGE_URL, category.imageUrl)
+        }
+
+        val recipesListFragment = RecipesListFragment().apply {
+            arguments = bundle
+        }
+
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.mainContainer, RecipesListFragment())
+            replace(R.id.mainContainer, recipesListFragment)
         }
     }
 }
