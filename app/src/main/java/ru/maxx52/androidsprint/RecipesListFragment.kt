@@ -1,9 +1,7 @@
 package ru.maxx52.androidsprint
 
-import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,7 @@ import androidx.fragment.app.commit
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.entities.STUB
 
-const val ARG_RECIPE = "recipeId"
+const val ARG_RECIPE_ID = "recipeId"
 
 @SuppressLint("ParcelCreator")
 class RecipesListFragment : Fragment(), Parcelable {
@@ -39,16 +37,21 @@ class RecipesListFragment : Fragment(), Parcelable {
             categoryName = it.getString(ARG_CATEGORY_NAME) ?: "Без названия"
             categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
         }
+        val drawable = Drawable.createFromStream(categoryImageUrl?.let {
+            binding.ivRecipe.context.assets.open(it)
+        }, null)
+        binding.tvTitleRecipe.text = categoryName
+        binding.ivRecipe.setImageDrawable(drawable)
         initRecycler()
     }
 
     private fun initRecycler() {
-        val categoriesAdapter = CategoriesListAdapter(STUB.getCategories())
-        binding.rvRecipes.adapter = categoriesAdapter
+        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId(categoryId))
+        binding.rvRecipes.adapter = recipesAdapter
 
-        categoriesAdapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
-            override fun onItemClick(categoryId: Int) {
-                openRecipeByRecipeId(categoryId)
+        recipesAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
+            override fun onItemClick(recipeId: Int) {
+                openRecipeByRecipeId(recipeId)
             }
         })
     }
@@ -70,14 +73,5 @@ class RecipesListFragment : Fragment(), Parcelable {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun describeContents(): Int {
-        // TODO("Not yet implemented")
-        return TODO("Provide the return value")
-    }
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        // TODO("Not yet implemented")
     }
 }
