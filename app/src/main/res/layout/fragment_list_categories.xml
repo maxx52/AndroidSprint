@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white"
+    android:backgroundTint="@color/white_color"
     android:orientation="vertical"
     tools:context=".FragmentListCategories">
 
@@ -45,10 +45,6 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/main_space_half_16"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:spanCount="2"
         tools:itemCount="6"
         tools:listitem="@layout/item_category" />
