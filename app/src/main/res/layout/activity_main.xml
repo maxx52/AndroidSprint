@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rounded_blue_button"
-            app:backgroundTint="@color/blue"
+            app:backgroundTint="@color/blue_color"
             android:paddingStart="@dimen/paddingStartEnd"
             android:paddingTop="@dimen/margin_10"
             android:paddingEnd="@dimen/paddingStartEnd"
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rounded_red_button"
-            app:backgroundTint="@color/red"
+            app:backgroundTint="@color/red_color"
             android:paddingStart="@dimen/marginStartRed"
             android:paddingTop="@dimen/margin_10"
             android:paddingEnd="@dimen/main_space_half_16"
@@ -66,7 +66,7 @@
             android:text="@string/text_favorites"
             app:icon="@drawable/ic_heart_empty"
             app:iconGravity="textEnd"
-            app:iconTint="@color/white"
+            app:iconTint="@color/white_color"
             android:layout_weight="1" />
 
     </LinearLayout>
