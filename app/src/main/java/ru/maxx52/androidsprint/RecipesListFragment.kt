@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.commit
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
+import ru.maxx52.androidsprint.entities.ARG_CATEGORY_ID
+import ru.maxx52.androidsprint.entities.ARG_CATEGORY_IMAGE_URL
+import ru.maxx52.androidsprint.entities.ARG_CATEGORY_NAME
 import ru.maxx52.androidsprint.entities.STUB
 
 const val ARG_RECIPE_ID = "recipeId"
