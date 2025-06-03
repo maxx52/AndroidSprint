@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.commit
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
 import ru.maxx52.androidsprint.entities.STUB
-
-const val ARG_CATEGORY_IMAGE_URL = "categoryImageUrl"
-const val ARG_CATEGORY_NAME = "categoryName"
-const val ARG_CATEGORY_ID = "categoryId"
+import ru.maxx52.androidsprint.entities.ARG_CATEGORY_ID
+import ru.maxx52.androidsprint.entities.ARG_CATEGORY_IMAGE_URL
+import ru.maxx52.androidsprint.entities.ARG_CATEGORY_NAME
 
 class FragmentListCategories : Fragment() {
     private var _binding: FragmentListCategoriesBinding? = null
