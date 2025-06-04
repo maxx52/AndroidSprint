@@ -2,8 +2,6 @@ package ru.maxx52.androidsprint
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +12,16 @@ import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_ID
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_IMAGE_URL
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_NAME
+import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
 import ru.maxx52.androidsprint.entities.STUB
 
-const val ARG_RECIPE_ID = "recipeId"
-
-class RecipesListFragment : Fragment(), Parcelable {
+class RecipesListFragment : Fragment() {
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
 
     private var categoryId: Int? = null
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
-    private var recipeId: Int? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRecipesListBinding.inflate(inflater, container, false)
@@ -40,7 +36,11 @@ class RecipesListFragment : Fragment(), Parcelable {
             categoryName = it.getString(ARG_CATEGORY_NAME) ?: "Без названия"
             categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
         }
+        val drawable = Drawable.createFromStream(categoryImageUrl?.let {
+            binding.ivRecipe.context.assets.open(it)
+        }, null)
         binding.tvTitleRecipe.text = categoryName
+        binding.ivRecipe.setImageDrawable(drawable)
         try {
             val drawable = Drawable.createFromStream(requireContext().assets.open(categoryImageUrl ?: ""), null)
             binding.ivRecipe.setImageDrawable(drawable)
@@ -85,25 +85,5 @@ class RecipesListFragment : Fragment(), Parcelable {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeValue(recipeId)
-    }
-
-    companion object CREATOR : Parcelable.Creator<RecipesListFragment> {
-        override fun createFromParcel(parcel: Parcel): RecipesListFragment {
-            val fragment = RecipesListFragment()
-            fragment.recipeId = parcel.readValue(Int::class.java.classLoader) as? Int
-            return fragment
-        }
-
-        override fun newArray(size: Int): Array<RecipesListFragment?> {
-            return arrayOfNulls(size)
-        }
     }
 }

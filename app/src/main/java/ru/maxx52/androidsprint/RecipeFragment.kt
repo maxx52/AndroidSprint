@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
 import ru.maxx52.androidsprint.entities.Recipe
+import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
 
 class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
