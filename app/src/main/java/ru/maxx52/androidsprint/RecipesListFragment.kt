@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.commit
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_ID
@@ -18,14 +19,11 @@ class RecipesListFragment : Fragment() {
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
 
+    private var categoryId: Int? = null
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
-    private var categoryId: Int? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRecipesListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -34,20 +32,26 @@ class RecipesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
-            categoryId = it.getInt(ARG_CATEGORY_ID)
+            categoryId = it.getInt(ARG_CATEGORY_ID, -1)
             categoryName = it.getString(ARG_CATEGORY_NAME) ?: "Без названия"
+            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
         }
         val drawable = Drawable.createFromStream(categoryImageUrl?.let {
             binding.ivRecipe.context.assets.open(it)
         }, null)
         binding.tvTitleRecipe.text = categoryName
         binding.ivRecipe.setImageDrawable(drawable)
+        try {
+            val drawable = Drawable.createFromStream(requireContext().assets.open(categoryImageUrl ?: ""), null)
+            binding.ivRecipe.setImageDrawable(drawable)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         initRecycler()
     }
 
     private fun initRecycler() {
-        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId(categoryId))
+        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId(categoryId ?: -1))
         binding.rvRecipes.adapter = recipesAdapter
 
         recipesAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
@@ -58,11 +62,23 @@ class RecipesListFragment : Fragment() {
     }
 
     fun openRecipeByRecipeId(recipeId: Int) {
-        val bundle = Bundle()
-        bundle.putInt(ARG_RECIPE_ID, recipeId)
+        val recipe = STUB.getRecipesByCategoryId(categoryId ?: -1).find { it.id == recipeId }
+        if (recipe == null) {
+            Toast.makeText(requireContext(), "Рецепт не найден", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val bundle = Bundle().apply {
+            putInt(ARG_RECIPE_ID, recipe.id)
+        }
+
+        val recipeFragment = RecipeFragment().apply {
+            arguments = bundle
+        }
+
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.mainContainer, RecipeFragment())
+            replace(R.id.mainContainer, recipeFragment)
         }
     }
 

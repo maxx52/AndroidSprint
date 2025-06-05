@@ -1,7 +1,11 @@
 package ru.maxx52.androidsprint.entities
 
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
+
+@Parcelize
 data class Ingredient(
-    private val quantity: String,
-    private val unitOfMeasure: String,
-    private val description: String,
-)
+    val quantity: String,
+    val unitOfMeasure: String,
+    val description: String,
+) : Parcelable
