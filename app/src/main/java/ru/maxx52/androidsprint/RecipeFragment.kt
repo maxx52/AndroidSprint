@@ -1,5 +1,6 @@
 package ru.maxx52.androidsprint
 
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,7 +24,6 @@ class RecipeFragment : Fragment() {
         return binding.root
     }
 
-    @Suppress("INFERRED_TYPE_VARIABLE_INTO_POSSIBLE_EMPTY_INTERSECTION")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,6 +37,26 @@ class RecipeFragment : Fragment() {
             binding.tvRecipeTitle.text = it.title
         } ?: run {
             binding.tvRecipeTitle.text = "Рецепта нет"
+        }
+        initRecycler()
+        initUI()
+    }
+
+    fun initRecycler() {
+        val ingredientsAdapter = IngredientsAdapter(recipe?.ingredients ?: emptyList())
+        binding.rvIngredients.adapter = ingredientsAdapter
+
+        val methodAdapter = MethodAdapter(recipe?.method ?: emptyList())
+        binding.rvMethod.adapter = methodAdapter
+    }
+
+    fun initUI() {
+        binding.tvRecipeTitle.text = recipe?.title
+        try {
+            val drawable = Drawable.createFromStream(requireContext().assets.open(recipe?.imageUrl ?: ""), null)
+            binding.ivRecipeImage.setImageDrawable(drawable)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }
