@@ -24,4 +24,5 @@
     <dimen name="height_card_recipe">132dp</dimen>
     <dimen name="height_card_recipe_image">100dp</dimen>
     <dimen name="width_title_of_recipe">242dp</dimen>
+    <dimen name="padding_recycler">12dp</dimen>
 </resources>

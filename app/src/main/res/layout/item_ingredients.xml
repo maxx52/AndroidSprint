@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvIngredientName"
+            style="@style/StyleTitle14.Dark.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="@string/text_cheese"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/tvIngredientCount"
+            style="@style/StyleTitle14.Dark.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spaceBetween"
+            tools:text="@string/text_100"
+            android:layout_weight="1"
+            android:gravity="end" />
+
+        <TextView
+            android:id="@+id/tvUnitOfMeasure"
+            style="@style/StyleTitle14.Dark.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spaceBetween"
+            tools:text="@string/text_grams" />
+
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_pixel"
+        android:layout_marginTop="@dimen/main_space_half_16"
+        android:layout_marginBottom="@dimen/main_space_half_16"
+        app:dividerColor="@color/grey_divider_color"
+        app:dividerThickness="@dimen/one_pixel"
+        app:dividerInsetStart="@dimen/padding_recycler"
+        app:dividerInsetEnd="@dimen/padding_recycler"
+        app:lastItemDecorated="false"/>
+
+</LinearLayout>

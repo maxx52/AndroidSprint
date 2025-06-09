@@ -16,6 +16,16 @@
         <item name="android:textColor">@color/title_blue_color</item>
     </style>
 
+    <style name="StyleTitle14.Dark.Regular" parent="StyleTitle14.Dark">
+        <item name="android:fontFamily">@font/montserrat400</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/grey_color</item>
+    </style>
+
+    <style name="StyleTitle14.Dark.Medium" parent="StyleTitle14.Dark.Regular">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
     <style name="StyleTitle12" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/grey_color</item>
         <item name="android:textSize">@dimen/text_size_12</item>

@@ -22,7 +22,7 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.ivRecipeItemImage)
-        val titleTextView: TextView = view.findViewById(R.id.tvRecipeTitle)
+        val titleTextView: TextView = view.findViewById(R.id.tvRecipeTitleItem)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {

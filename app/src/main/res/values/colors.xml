@@ -8,4 +8,5 @@
     <color name="main_color">#F4FAFF</color>
     <color name="grey_color">#666666</color>
     <color name="title_blue_color">#5F3678</color>
+    <color name="grey_divider_color">#F5F5F5</color>
 </resources>

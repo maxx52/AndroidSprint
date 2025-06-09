@@ -42,7 +42,8 @@ class RecipesListFragment : Fragment() {
         binding.tvTitleRecipe.text = categoryName
         binding.ivRecipe.setImageDrawable(drawable)
         try {
-            val drawable = Drawable.createFromStream(requireContext().assets.open(categoryImageUrl ?: ""), null)
+            val drawable = Drawable.createFromStream(requireContext().assets
+                .open(categoryImageUrl ?: ""), null)
             binding.ivRecipe.setImageDrawable(drawable)
         } catch (e: Exception) {
             e.printStackTrace()

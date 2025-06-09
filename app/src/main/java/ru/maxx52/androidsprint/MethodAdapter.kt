@@ -10,18 +10,17 @@ class MethodAdapter(private val dataSet: List<String>)
     : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val stepTextView: TextView = view.findViewById(R.id.tvCookingStep)
+        val stepTextView: TextView = view.findViewById(R.id.tvMethodItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_recipe, parent, false)
+            .inflate(R.layout.item_method, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val step = dataSet[position]
-        holder.stepTextView.text = step
+        holder.stepTextView.text = dataSet[position]
     }
 
     override fun getItemCount() = dataSet.size

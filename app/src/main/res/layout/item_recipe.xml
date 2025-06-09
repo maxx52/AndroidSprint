@@ -28,7 +28,7 @@
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/tvRecipeTitle"
+            android:id="@+id/tvRecipeTitleItem"
             style="@style/StyleTitle14.Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
