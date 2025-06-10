@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
 import ru.maxx52.androidsprint.entities.Recipe
 import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
@@ -53,6 +54,19 @@ class RecipeFragment : Fragment() {
     private fun initRecycler() {
         binding.rvIngredients.adapter = IngredientsAdapter(recipe!!.ingredients)
         binding.rvMethod.adapter = MethodAdapter(recipe!!.method)
+        binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.tvPortionDescription.text = progress.toString()
+        }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                // TODO not implemented
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                // TODO("Not yet implemented")
+            }
+        })
     }
 
     override fun onDestroyView() {

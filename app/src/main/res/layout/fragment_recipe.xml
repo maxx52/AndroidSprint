@@ -64,6 +64,41 @@
                 android:layout_marginStart="@dimen/main_space_half_16"
                 android:text="@string/text_ingredients" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/StyleTitle16.Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_portion_description"/>
+
+                <TextView
+                    android:id="@+id/tvPortionDescription"
+                    style="@style/StyleTitle16.Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_portion"
+                    tools:text="@string/_3"/>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/sbPortion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_portion"
+                android:min="1"
+                android:max="5"
+                android:progress="3"
+                tools:SeekBarProgress="@id/tvPortionDescription"
+                tools:SeekBarProgressIncrement="1"
+                tools:SeekBarSecondaryProgress="@id/tvPortionDescription"
+                tools:SeekBarThumb="@drawable/ic_thumb"
+                tools:SeekBarTrack="@drawable/ic_track" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
                 android:layout_width="match_parent"
@@ -71,6 +106,7 @@
                 android:layout_marginStart="@dimen/main_space_half_16"
                 android:layout_marginEnd="@dimen/main_space_half_16"
                 android:layout_marginBottom="@dimen/main_space_16"
+                android:layout_marginTop="@dimen/main_space_16"
                 tools:listitem="@layout/item_ingredients"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
