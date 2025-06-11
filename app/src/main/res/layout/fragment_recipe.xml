@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/main_space_half_16"
-            android:layout_marginStart="@dimen/main_space_half_16"
+            android:layout_marginStart="@dimen/main_space_16"
             android:layout_marginEnd="@dimen/main_space_half_16"
             android:orientation="vertical">
 
@@ -60,7 +60,6 @@
                 style="@style/StyleTitle20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_space_half_16"
                 android:text="@string/text_ingredients" />
 
             <LinearLayout
@@ -105,8 +104,8 @@
             android:background="@drawable/shape_rounded_white_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/main_space_half_16"
-            android:layout_marginEnd="@dimen/main_space_half_16"
+            android:layout_marginStart="@dimen/main_space_16"
+            android:layout_marginEnd="@dimen/main_space_16"
             android:layout_marginTop="@dimen/main_space_16"
             tools:listitem="@layout/item_ingredients"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -116,8 +115,8 @@
             style="@style/StyleTitle20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/main_space_half_16"
-            android:layout_marginTop="@dimen/main_space_16"
+            android:layout_marginStart="@dimen/main_space_16"
+            android:layout_marginTop="@dimen/space_20dp"
             android:text="@string/text_method" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -126,9 +125,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/main_space_16"
+            android:layout_marginStart="@dimen/main_space_16"
+            android:layout_marginEnd="@dimen/main_space_16"
             android:layout_marginBottom="@dimen/main_space_half_16"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             tools:listitem="@layout/item_method"/>
 
     </LinearLayout>

@@ -39,7 +39,7 @@
     </style>
 
     <style name="StyleTitle16.Dark" parent="StyleTitle16">
-        <item name="android:textColor">@color/grey_color</item>
+        <item name="android:textColor">@color/title_blue_color</item>
     </style>
 
     <style name="StyleNavButton" parent="Widget.Material3.Button">

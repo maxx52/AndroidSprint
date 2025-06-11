@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="@dimen/padding_recycler"
+    android:layout_marginTop="@dimen/padding_recycler"
+    android:layout_marginEnd="@dimen/padding_recycler"
+    android:layout_marginBottom="@dimen/main_space_half_16"
     android:orientation="vertical">
 
     <TextView
@@ -10,9 +14,6 @@
         style="@style/StyleTitle14.Dark.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/text_step_method"
-        android:layout_marginStart="@dimen/main_space_half_16"
-        android:layout_marginTop="@dimen/main_space_half_16"
-        android:layout_marginEnd="@dimen/main_space_half_16"/>
+        tools:text="@string/text_step_method" />
 
 </LinearLayout>
