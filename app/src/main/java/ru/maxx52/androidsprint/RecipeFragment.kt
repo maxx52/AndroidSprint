@@ -58,16 +58,39 @@ class RecipeFragment : Fragment() {
     private fun initRecycler() {
         binding.rvIngredients.adapter = IngredientsAdapter(recipe?.ingredients ?: emptyList())
         binding.rvMethod.adapter = MethodAdapter(recipe?.method ?: emptyList())
-        val divider = MaterialDividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-            .apply {
-                dividerInsetStart = resources.getDimensionPixelSize(R.dimen.padding_recycler)
-                dividerInsetEnd = resources.getDimensionPixelSize(R.dimen.padding_recycler)
-                dividerThickness = resources.getDimensionPixelSize(R.dimen.one_pixel)
-                setDividerColor(ContextCompat.getColor(requireContext(), R.color.grey_divider_color))
-                isLastItemDecorated = false
+
+        val dividerIngredients = MaterialDividerItemDecoration(requireContext(), RecyclerView.VERTICAL).apply {
+            dividerInsetStart = resources.getDimensionPixelSize(R.dimen.padding_recycler)
+            dividerInsetEnd = resources.getDimensionPixelSize(R.dimen.padding_recycler)
+            dividerThickness = resources.getDimensionPixelSize(R.dimen.one_pixel)
+            setDividerColor(ContextCompat.getColor(requireContext(), R.color.grey_divider_color))
+            isLastItemDecorated = false
+        }
+        val dividerMethod = MaterialDividerItemDecoration(requireContext(), RecyclerView.VERTICAL).apply {
+            dividerInsetStart = resources.getDimensionPixelSize(R.dimen.padding_recycler)
+            dividerInsetEnd = resources.getDimensionPixelSize(R.dimen.padding_recycler)
+            dividerThickness = resources.getDimensionPixelSize(R.dimen.one_pixel)
+            setDividerColor(ContextCompat.getColor(requireContext(), R.color.grey_divider_color))
+            isLastItemDecorated = false
+        }
+
+        binding.rvIngredients.addItemDecoration(dividerIngredients)
+        binding.rvMethod.addItemDecoration(dividerMethod)
+
+        binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.tvPortionDescription.text = progress.toString()
+                (binding.rvIngredients.adapter as? IngredientsAdapter)?.updateIngredients(progress.toDouble())
             }
-        binding.rvIngredients.addItemDecoration(divider)
-        binding.rvMethod.addItemDecoration(divider)
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                // todo
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                // todo
+            }
+        })
     }
 
     override fun onDestroyView() {

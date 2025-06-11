@@ -98,44 +98,38 @@
                 tools:SeekBarThumb="@drawable/ic_thumb"
                 tools:SeekBarTrack="@drawable/ic_track" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvIngredients"
-                android:background="@drawable/shape_rounded_white_bg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_space_half_16"
-                android:layout_marginEnd="@dimen/main_space_half_16"
-                android:layout_marginBottom="@dimen/main_space_16"
-                android:layout_marginTop="@dimen/main_space_16"
-                tools:listitem="@layout/item_ingredients"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-            <TextView
-                android:id="@+id/tvMethodTitle"
-                style="@style/StyleTitle20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_space_half_16"
-                android:layout_marginTop="@dimen/main_space_16"
-                android:text="@string/text_method"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMethod"
-                android:background="@drawable/shape_rounded_white_bg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/main_space_half_16"
-                android:paddingEnd="@dimen/main_space_half_16"
-                android:paddingTop="@dimen/padding_recycler"
-                android:layout_marginBottom="@dimen/main_space_half_16"
-                android:layout_marginTop="@dimen/main_space_16"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                tools:listitem="@layout/item_method"/>
-
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIngredients"
+            android:background="@drawable/shape_rounded_white_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_space_half_16"
+            android:layout_marginEnd="@dimen/main_space_half_16"
+            android:layout_marginTop="@dimen/main_space_16"
+            tools:listitem="@layout/item_ingredients"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <TextView
+            android:id="@+id/tvMethodTitle"
+            style="@style/StyleTitle20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_space_half_16"
+            android:layout_marginTop="@dimen/main_space_16"
+            android:text="@string/text_method" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMethod"
+            android:background="@drawable/shape_rounded_white_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/main_space_16"
+            android:layout_marginBottom="@dimen/main_space_half_16"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:listitem="@layout/item_method"/>
 
     </LinearLayout>
 
