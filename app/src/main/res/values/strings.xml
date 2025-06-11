@@ -25,7 +25,7 @@
     <string name="text_ingredients">Игредиенты</string>
     <string name="text_method">Способ приготовления</string>
     <string name="text_cheese">Сыр</string>
-    <string name="text_100">100</string>
+    <string name="text_100">100Г</string>
     <string name="text_step_method">1. В глубокой миске смешайте говяжий фарш, лук, чеснок, соль и перец. Разделите фарш на 4 равные части и сформируйте котлеты.</string>
     <string name="text_grams">Г</string>
 </resources>
