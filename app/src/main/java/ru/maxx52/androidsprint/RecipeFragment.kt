@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.divider.MaterialDivider
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import android.widget.SeekBar
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
 import ru.maxx52.androidsprint.entities.Recipe
@@ -41,10 +45,10 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initUI() {
-        binding.tvRecipeTitle.text = recipe!!.title
+        binding.tvRecipeTitle.text = recipe?.title ?: ""
         try {
             val drawable = Drawable.createFromStream(requireContext().assets
-                .open(recipe!!.imageUrl), null)
+                .open(recipe?.imageUrl ?: ""), null)
             binding.ivRecipeImage.setImageDrawable(drawable)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -52,21 +56,18 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        binding.rvIngredients.adapter = IngredientsAdapter(recipe!!.ingredients)
-        binding.rvMethod.adapter = MethodAdapter(recipe!!.method)
-        binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.tvPortionDescription.text = progress.toString()
-        }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // TODO not implemented
+        binding.rvIngredients.adapter = IngredientsAdapter(recipe?.ingredients ?: emptyList())
+        binding.rvMethod.adapter = MethodAdapter(recipe?.method ?: emptyList())
+        val divider = MaterialDividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
+            .apply {
+                dividerInsetStart = resources.getDimensionPixelSize(R.dimen.padding_recycler)
+                dividerInsetEnd = resources.getDimensionPixelSize(R.dimen.padding_recycler)
+                dividerThickness = resources.getDimensionPixelSize(R.dimen.one_pixel)
+                setDividerColor(ContextCompat.getColor(requireContext(), R.color.grey_divider_color))
+                isLastItemDecorated = false
             }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // TODO("Not yet implemented")
-            }
-        })
+        binding.rvIngredients.addItemDecoration(divider)
+        binding.rvMethod.addItemDecoration(divider)
     }
 
     override fun onDestroyView() {

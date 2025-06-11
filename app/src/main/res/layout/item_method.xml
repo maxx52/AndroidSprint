@@ -16,15 +16,4 @@
         android:layout_marginTop="@dimen/padding_recycler"
         android:layout_marginEnd="@dimen/padding_recycler"/>
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/one_pixel"
-        android:layout_marginTop="@dimen/main_space_half_16"
-        android:layout_marginBottom="@dimen/main_space_half_16"
-        app:dividerColor="@color/grey_divider_color"
-        app:dividerThickness="@dimen/one_pixel"
-        app:dividerInsetStart="@dimen/padding_recycler"
-        app:dividerInsetEnd="@dimen/padding_recycler"
-        app:lastItemDecorated="false"/>
-
 </LinearLayout>

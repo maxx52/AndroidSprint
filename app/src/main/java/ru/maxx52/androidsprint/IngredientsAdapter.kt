@@ -16,28 +16,23 @@ class IngredientsAdapter(
     private var quantity: Double = 1.0
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleTextView: TextView = view.findViewById(R.id.tvRecipeTitle)
+        val titleTextView: TextView = view.findViewById(R.id.tvIngredientName)
+        val quantityTextView: TextView = view.findViewById(R.id.tvIngredientCount)
+        val unitOfMeasureTextView: TextView = view.findViewById(R.id.tvUnitOfMeasure)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_recipe, viewGroup, false)
+            .inflate(R.layout.item_ingredients, viewGroup, false)
         return ViewHolder(view)
     }
 
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val ingredient = displayedDataSet[position]
-        val originalQuantity = ingredient.quantity.toDoubleOrNull() ?: 0.0
-        val updatedQuantity = originalQuantity * quantity
-        val displayQuantity = if (updatedQuantity % 1.0 == 0.0) {
-            updatedQuantity.toInt().toString()
-        } else {
-            String.format("%.1f", updatedQuantity)
-        }
-
-        val displayText = "$displayQuantity ${ingredient.unitOfMeasure} ${ingredient.description}"
-        viewHolder.titleTextView.text = displayText
+        val ingredient = dataSet[position]
+        viewHolder.titleTextView.text = ingredient.description
+        viewHolder.quantityTextView.text = ingredient.quantity
+        viewHolder.quantityTextView.text = ingredient.unitOfMeasure
     }
 
     override fun getItemCount() = displayedDataSet.size
