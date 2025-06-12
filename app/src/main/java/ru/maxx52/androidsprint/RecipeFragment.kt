@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.divider.MaterialDivider
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
 import ru.maxx52.androidsprint.entities.Recipe
 import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
+import ru.maxx52.androidsprint.entities.NON_RECIPE
 import ru.maxx52.androidsprint.entities.STUB.getRecipeById
 
 class RecipeFragment : Fragment() {
@@ -29,13 +29,13 @@ class RecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val recipeId = arguments?.getInt(ARG_RECIPE_ID, -1) ?: -1
         if (recipeId == -1) {
-            binding.tvRecipeTitle.text = "Рецепт не найден"
+            binding.tvRecipeTitle.text = NON_RECIPE
             return
         }
         recipe = getRecipeById(recipeId)
 
         if (recipe == null) {
-            binding.tvRecipeTitle.text = "Рецепт не найден"
+            binding.tvRecipeTitle.text = NON_RECIPE
             return
         }
         initUI()

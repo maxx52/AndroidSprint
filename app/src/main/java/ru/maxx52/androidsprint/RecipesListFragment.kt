@@ -13,6 +13,7 @@ import ru.maxx52.androidsprint.entities.ARG_CATEGORY_ID
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_IMAGE_URL
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_NAME
 import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
+import ru.maxx52.androidsprint.entities.NON_RECIPE
 import ru.maxx52.androidsprint.entities.STUB
 
 class RecipesListFragment : Fragment() {
@@ -65,7 +66,7 @@ class RecipesListFragment : Fragment() {
     fun openRecipeByRecipeId(recipeId: Int) {
         val recipe = STUB.getRecipesByCategoryId(categoryId ?: -1).find { it.id == recipeId }
         if (recipe == null) {
-            Toast.makeText(requireContext(), "Рецепт не найден", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
             return
         }
 

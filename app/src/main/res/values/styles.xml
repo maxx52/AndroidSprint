@@ -10,6 +10,7 @@
     <style name="StyleTitle20" parent="StyleTitle14">
         <item name="android:textSize">@dimen/text_size_header</item>
         <item name="android:textColor">@color/title_color</item>
+        <item name="android:fontFamily">@font/montserrat600</item>
     </style>
 
     <style name="StyleTitle14.Dark" parent="StyleTitle14">

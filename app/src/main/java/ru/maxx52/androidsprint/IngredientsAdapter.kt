@@ -1,31 +1,29 @@
 package ru.maxx52.androidsprint
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.maxx52.androidsprint.entities.Ingredient
+import ru.maxx52.androidsprint.databinding.ItemIngredientsBinding
 
-class IngredientsAdapter(private val dataSet: List<Ingredient>)
-    : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+class IngredientsAdapter(
+    private val dataSet: List<Ingredient>
+) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleTextView: TextView = view.findViewById(R.id.tvIngredientName)
-        val quantityTextView: TextView = view.findViewById(R.id.tvIngredientCount)
+    inner class ViewHolder(val binding: ItemIngredientsBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemIngredientsBinding.inflate(LayoutInflater
+            .from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_ingredients, viewGroup, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ingredient = dataSet[position]
-        viewHolder.titleTextView.text = ingredient.description
-        viewHolder.quantityTextView.text = ingredient.quantity
-        viewHolder.quantityTextView.text = ingredient.unitOfMeasure
+        holder.binding.tvIngredientName.text = ingredient.description
+        holder.binding.tvIngredientCount.text = "${ingredient.quantity} ${ingredient.unitOfMeasure}"
     }
 
     override fun getItemCount() = dataSet.size
