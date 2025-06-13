@@ -101,7 +101,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredients"
-            android:background="@drawable/shape_rounded_white_bg"
+            android:background="@drawable/shape_rounded_recycler_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/main_space_16"
@@ -121,7 +121,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMethod"
-            android:background="@drawable/shape_rounded_white_bg"
+            android:background="@drawable/shape_rounded_recycler_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/main_space_16"

@@ -13,6 +13,7 @@ import android.widget.SeekBar
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
 import ru.maxx52.androidsprint.entities.Recipe
 import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
+import ru.maxx52.androidsprint.entities.NON_RECIPE
 import ru.maxx52.androidsprint.entities.STUB.getRecipeById
 
 class RecipeFragment : Fragment() {
@@ -30,13 +31,13 @@ class RecipeFragment : Fragment() {
 
         val recipeId = arguments?.getInt(ARG_RECIPE_ID, -1) ?: -1
         if (recipeId == -1) {
-            binding.tvRecipeTitle.text = "Рецепт не найден"
+            binding.tvRecipeTitle.text = NON_RECIPE
             return
         }
         recipe = getRecipeById(recipeId)
 
         if (recipe == null) {
-            binding.tvRecipeTitle.text = "Рецепт не найден"
+            binding.tvRecipeTitle.text = NON_RECIPE
             return
         }
         initUI()
