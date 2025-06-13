@@ -19,7 +19,6 @@ class MethodAdapter(private val dataSet: List<String>)
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.tvMethodNumber.text = (position + 1).toString() + "."
         holder.binding.tvMethodItem.text = dataSet[position]
     }
 
