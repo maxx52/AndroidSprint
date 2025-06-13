@@ -12,6 +12,7 @@
     android:foreground="?selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
+    tools:context=".RecipesListAdapter"
     app:cardCornerRadius="@dimen/main_space_half_16">
 
     <LinearLayout
@@ -28,7 +29,7 @@
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/tvRecipeTitle"
+            android:id="@+id/tvRecipeTitleItem"
             style="@style/StyleTitle14.Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

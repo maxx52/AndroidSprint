@@ -20,4 +20,14 @@
     <string name="text_fragment_of_recipe">Fragment of recipe</string>
     <string name="image_of_recipe">Image of recipe</string>
     <string name="text_burgers">Бургеры</string>
+    <string name="recipe_image">Recipe image</string>
+    <string name="text_burger_with_mushrooms_and_cheese">Бургер с грибами и сыром</string>
+    <string name="text_ingredients">Ингредиенты</string>
+    <string name="text_method">Способ приготовления</string>
+    <string name="text_cheese">Сыр</string>
+    <string name="text_100">100Г</string>
+    <string name="text_step_method">В глубокой миске смешайте говяжий фарш, лук, чеснок, соль и перец. Разделите фарш на 4 равные части и сформируйте котлеты.</string>
+    <string name="text_grams">Г</string>
+    <string name="_3">3</string>
+    <string name="text_method_number">1. </string>
 </resources>

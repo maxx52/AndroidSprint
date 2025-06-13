@@ -2,51 +2,45 @@ package ru.maxx52.androidsprint
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.maxx52.androidsprint.entities.Recipe
+import ru.maxx52.androidsprint.databinding.ItemRecipeBinding
 
 class RecipesListAdapter(private val dataSet: List<Recipe>) :
-    RecyclerView.Adapter<RecipesListAdapter.ViewHolder>(){
-
+    RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
     var itemClickListener: OnItemClickListener? = null
 
-    fun setOnItemClickListener(listener: OnItemClickListener) { itemClickListener = listener }
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
+    }
 
     interface OnItemClickListener {
         fun onItemClick(recipeId: Int)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageView: ImageView = view.findViewById(R.id.ivRecipeItemImage)
-        val titleTextView: TextView = view.findViewById(R.id.tvRecipeTitle)
+    class ViewHolder(val binding: ItemRecipeBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_recipe, viewGroup, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(
-        viewHolder: ViewHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipe = dataSet[position]
-        viewHolder.titleTextView.text = recipe.title
+        holder.binding.tvRecipeTitleItem.text = recipe.title
 
         try {
-            val drawable = Drawable.createFromStream(viewHolder.imageView.context.assets
-                .open(recipe.imageUrl), null)
-            viewHolder.imageView.setImageDrawable(drawable)
+            val drawable = Drawable.createFromStream(
+                holder.binding.root.context.assets.open(recipe.imageUrl),
+                null
+            )
+            holder.binding.ivRecipeItemImage.setImageDrawable(drawable)
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        viewHolder.itemView.setOnClickListener {
+        holder.binding.root.setOnClickListener {
             itemClickListener?.onItemClick(recipe.id)
         }
     }
