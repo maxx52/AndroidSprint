@@ -68,14 +68,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/StyleTitle16.Dark"
+                    style="@style/StyleTitle16.Grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_portion_description"/>
 
                 <TextView
                     android:id="@+id/tvPortionDescription"
-                    style="@style/StyleTitle16.Dark"
+                    style="@style/StyleTitle16.Grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_portion"
@@ -107,8 +107,7 @@
             android:layout_marginStart="@dimen/main_space_16"
             android:layout_marginEnd="@dimen/main_space_16"
             android:layout_marginTop="@dimen/main_space_16"
-            android:paddingTop="@dimen/spaceBetween"
-            android:paddingBottom="@dimen/spaceBetween"
+            android:paddingVertical="@dimen/spaceBetween"
             tools:listitem="@layout/item_ingredients"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -130,8 +129,7 @@
             android:layout_marginStart="@dimen/main_space_16"
             android:layout_marginEnd="@dimen/main_space_16"
             android:layout_marginBottom="@dimen/main_space_half_16"
-            android:paddingTop="@dimen/spaceBetween"
-            android:paddingBottom="@dimen/spaceBetween"
+            android:paddingVertical="@dimen/spaceBetween"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_method"/>
 

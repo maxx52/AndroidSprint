@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.maxx52.androidsprint.entities.Ingredient
+import java.math.BigDecimal
 
 class IngredientsAdapter(
     private var dataSet: List<Ingredient>
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
-    private var quantity: Double = 1.0
+    private var quantity: BigDecimal = BigDecimal.ONE
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView = view.findViewById(R.id.tvIngredientName)
@@ -27,12 +28,12 @@ class IngredientsAdapter(
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val ingredient = dataSet[position]
-        val originalQuantity = ingredient.quantity.toDoubleOrNull() ?: 0.0
-        val updatedQuantity = originalQuantity * quantity
-        val displayQuantity = if (updatedQuantity % 1.0 == 0.0) {
-            updatedQuantity.toInt().toString()
-        } else {
-            String.format("%.1f", updatedQuantity)
+        val originalQuantity = ingredient.quantity.toBigDecimalOrNull() ?: BigDecimal.ZERO
+        val updatedQuantity = originalQuantity.multiply(quantity)
+        val displayQuantity = when {
+            updatedQuantity.remainder(BigDecimal.ONE) == BigDecimal.ZERO ->
+                updatedQuantity.toInt().toString()
+            else -> "%.1f".format(updatedQuantity)
         }
         val displayText = "$displayQuantity ${ingredient.unitOfMeasure}"
         viewHolder.titleTextView.text = ingredient.description
@@ -42,9 +43,8 @@ class IngredientsAdapter(
     override fun getItemCount() = dataSet.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateIngredients(quantity: Double) {
+    fun updateIngredients(quantity: BigDecimal) {
         this.quantity = quantity
-        dataSet.also { this.dataSet = it }
         notifyDataSetChanged()
     }
 }

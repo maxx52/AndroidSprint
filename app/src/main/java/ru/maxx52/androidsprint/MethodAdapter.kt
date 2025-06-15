@@ -19,7 +19,7 @@ class MethodAdapter(private val dataSet: List<String>)
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.tvMethodItem.text = dataSet[position]
+        holder.binding.tvMethodItem.text = "${position + 1}. ${dataSet[position]}"
     }
 
     override fun getItemCount() = dataSet.size
