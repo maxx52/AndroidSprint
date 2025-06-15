@@ -68,14 +68,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/StyleTitle16.Dark"
+                    style="@style/StyleTitle16.Grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_portion_description"/>
 
                 <TextView
                     android:id="@+id/tvPortionDescription"
-                    style="@style/StyleTitle16.Dark"
+                    style="@style/StyleTitle16.Grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_portion"
@@ -101,12 +101,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredients"
-            android:background="@drawable/shape_rounded_white_bg"
+            android:background="@drawable/shape_rounded_recycler_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/main_space_16"
             android:layout_marginEnd="@dimen/main_space_16"
             android:layout_marginTop="@dimen/main_space_16"
+            android:paddingVertical="@dimen/spaceBetween"
             tools:listitem="@layout/item_ingredients"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -121,13 +122,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMethod"
-            android:background="@drawable/shape_rounded_white_bg"
+            android:background="@drawable/shape_rounded_recycler_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/main_space_16"
             android:layout_marginStart="@dimen/main_space_16"
             android:layout_marginEnd="@dimen/main_space_16"
             android:layout_marginBottom="@dimen/main_space_half_16"
+            android:paddingVertical="@dimen/spaceBetween"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_method"/>
 

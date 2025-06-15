@@ -10,6 +10,7 @@
     <style name="StyleTitle20" parent="StyleTitle14">
         <item name="android:textSize">@dimen/text_size_header</item>
         <item name="android:textColor">@color/title_color</item>
+        <item name="android:fontFamily">@font/montserrat600</item>
     </style>
 
     <style name="StyleTitle14.Dark" parent="StyleTitle14">
@@ -40,6 +41,10 @@
 
     <style name="StyleTitle16.Dark" parent="StyleTitle16">
         <item name="android:textColor">@color/title_blue_color</item>
+    </style>
+
+    <style name="StyleTitle16.Grey" parent="StyleTitle16">
+        <item name="android:textColor">@color/grey_color</item>
     </style>
 
     <style name="StyleNavButton" parent="Widget.Material3.Button">
