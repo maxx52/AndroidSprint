@@ -68,18 +68,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/StyleTitle16.Dark"
+                    style="@style/StyleTitle16.Grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_portion_description"/>
 
                 <TextView
                     android:id="@+id/tvPortionDescription"
-                    style="@style/StyleTitle16.Dark"
+                    style="@style/StyleTitle16.Grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_portion"
-                    tools:text="@string/_3"/>
+                    android:text="@string/text_1"/>
 
             </LinearLayout>
 
@@ -90,7 +90,7 @@
                 android:layout_marginTop="@dimen/margin_portion"
                 android:min="1"
                 android:max="5"
-                android:progress="3"
+                android:progress="1"
                 tools:SeekBarProgress="@id/tvPortionDescription"
                 tools:SeekBarProgressIncrement="1"
                 tools:SeekBarSecondaryProgress="@id/tvPortionDescription"
@@ -107,6 +107,7 @@
             android:layout_marginStart="@dimen/main_space_16"
             android:layout_marginEnd="@dimen/main_space_16"
             android:layout_marginTop="@dimen/main_space_16"
+            android:paddingVertical="@dimen/spaceBetween"
             tools:listitem="@layout/item_ingredients"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -128,6 +129,7 @@
             android:layout_marginStart="@dimen/main_space_16"
             android:layout_marginEnd="@dimen/main_space_16"
             android:layout_marginBottom="@dimen/main_space_half_16"
+            android:paddingVertical="@dimen/spaceBetween"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_method"/>
 

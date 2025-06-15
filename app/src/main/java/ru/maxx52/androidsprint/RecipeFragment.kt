@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import android.widget.SeekBar
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
 import ru.maxx52.androidsprint.entities.Recipe
 import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
@@ -27,6 +28,7 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val recipeId = arguments?.getInt(ARG_RECIPE_ID, -1) ?: -1
         if (recipeId == -1) {
             binding.tvRecipeTitle.text = NON_RECIPE
@@ -56,20 +58,38 @@ class RecipeFragment : Fragment() {
     private fun initRecycler() {
         binding.rvIngredients.adapter = IngredientsAdapter(recipe?.ingredients ?: emptyList())
         binding.rvMethod.adapter = MethodAdapter(recipe?.method ?: emptyList())
-        val divider = MaterialDividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-            .apply {
-                dividerInsetStart = resources.getDimensionPixelSize(R.dimen.padding_recycler)
-                dividerInsetEnd = resources.getDimensionPixelSize(R.dimen.padding_recycler)
-                dividerThickness = resources.getDimensionPixelSize(R.dimen.one_pixel)
-                setDividerColor(ContextCompat.getColor(requireContext(), R.color.grey_divider_color))
-                isLastItemDecorated = false
+        binding.rvIngredients.addItemDecoration(createDivider())
+        binding.rvMethod.addItemDecoration(createDivider())
+
+        binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.tvPortionDescription.text = progress.toString()
+                (binding.rvIngredients.adapter as? IngredientsAdapter)?.updateIngredients(progress.toBigDecimal())
             }
-        binding.rvIngredients.addItemDecoration(divider)
-        binding.rvMethod.addItemDecoration(divider)
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                // todo
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                // todo
+            }
+        })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun createDivider(): MaterialDividerItemDecoration {
+        return MaterialDividerItemDecoration(requireContext(),
+            RecyclerView.VERTICAL).apply {
+            dividerInsetStart = resources.getDimensionPixelSize(R.dimen.padding_recycler)
+            dividerInsetEnd = resources.getDimensionPixelSize(R.dimen.padding_recycler)
+            dividerThickness = resources.getDimensionPixelSize(R.dimen.one_pixel)
+            setDividerColor(ContextCompat.getColor(requireContext(), R.color.grey_divider_color))
+            isLastItemDecorated = false
+        }
     }
 }
