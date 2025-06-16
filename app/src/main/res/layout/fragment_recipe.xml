@@ -94,8 +94,8 @@
                 tools:SeekBarProgress="@id/tvPortionDescription"
                 tools:SeekBarProgressIncrement="1"
                 tools:SeekBarSecondaryProgress="@id/tvPortionDescription"
-                tools:SeekBarThumb="@drawable/ic_thumb"
-                tools:SeekBarTrack="@drawable/ic_track" />
+                android:thumb="@drawable/shape_seekbar_thumb"
+                android:progressDrawable="@drawable/shape_seekbar_progress" />
 
         </LinearLayout>
 

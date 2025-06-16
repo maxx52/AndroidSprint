@@ -26,4 +26,6 @@
     <dimen name="width_title_of_recipe">242dp</dimen>
     <dimen name="padding_recycler">12dp</dimen>
     <dimen name="space_20dp">20dp</dimen>
+    <dimen name="seekbar_thumb_height">30dp</dimen>
+    <dimen name="space_4dp">4dp</dimen>
 </resources>
