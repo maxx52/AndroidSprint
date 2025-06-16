@@ -20,6 +20,7 @@ class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
     private var recipe: Recipe? = null
+    var isFavorite = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRecipeBinding.inflate(inflater, container, false)
@@ -52,6 +53,17 @@ class RecipeFragment : Fragment() {
             binding.ivRecipeImage.setImageDrawable(drawable)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+
+        binding.ibAddFavorites.setImageResource(R.drawable.ic_heart_empty)
+        binding.ibAddFavorites.setOnClickListener {
+            isFavorite = !isFavorite
+
+            if (isFavorite) {
+                binding.ibAddFavorites.setImageResource(R.drawable.ic_heart)
+            } else {
+                binding.ibAddFavorites.setImageResource(R.drawable.ic_heart_empty)
+            }
         }
     }
 
