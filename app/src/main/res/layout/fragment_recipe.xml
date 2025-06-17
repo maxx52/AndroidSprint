@@ -31,6 +31,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/bg_categories" />
 
+            <ImageButton
+                android:id="@+id/ibAddFavorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/text_image_of_favorites"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@null"
+                android:foreground="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginTop="@dimen/main_space_16"
+                android:layout_marginEnd="@dimen/main_space_16"
+                android:paddingVertical="@dimen/space_favorites"
+                android:paddingHorizontal="@dimen/half_space_favorites"
+                tools:src="@drawable/ic_heart" />
+
             <TextView
                 android:id="@+id/tvRecipeTitle"
                 style="@style/StyleTitle20"
@@ -60,6 +77,7 @@
                 style="@style/StyleTitle20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_portion"
                 android:text="@string/text_ingredients" />
 
             <LinearLayout
@@ -83,21 +101,21 @@
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatSeekBar
-                android:id="@+id/sbPortion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_portion"
-                android:min="1"
-                android:max="5"
-                android:progress="1"
-                tools:SeekBarProgress="@id/tvPortionDescription"
-                tools:SeekBarProgressIncrement="1"
-                tools:SeekBarSecondaryProgress="@id/tvPortionDescription"
-                android:thumb="@drawable/shape_seekbar_thumb"
-                android:progressDrawable="@drawable/shape_seekbar_progress" />
-
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/sbPortion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_portion"
+            android:min="1"
+            android:max="5"
+            android:progress="1"
+            tools:SeekBarProgress="@id/tvPortionDescription"
+            tools:SeekBarProgressIncrement="1"
+            tools:SeekBarSecondaryProgress="@id/tvPortionDescription"
+            android:thumb="@drawable/shape_seekbar_thumb"
+            android:progressDrawable="@drawable/shape_seekbar_progress" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredients"
