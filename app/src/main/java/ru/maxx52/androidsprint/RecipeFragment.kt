@@ -1,5 +1,6 @@
 package ru.maxx52.androidsprint
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,13 +15,15 @@ import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
 import ru.maxx52.androidsprint.entities.Recipe
 import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
 import ru.maxx52.androidsprint.entities.NON_RECIPE
+import ru.maxx52.androidsprint.entities.PREFS_NAME
+import ru.maxx52.androidsprint.entities.FAVORITES_KEY
 import ru.maxx52.androidsprint.entities.STUB.getRecipeById
+import androidx.core.content.edit
 
 class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
     private var recipe: Recipe? = null
-    var isFavorite = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRecipeBinding.inflate(inflater, container, false)
@@ -55,16 +58,31 @@ class RecipeFragment : Fragment() {
             e.printStackTrace()
         }
 
-        binding.ibAddFavorites.setImageResource(R.drawable.ic_heart_empty)
+        val currentRecipeId: String = recipe?.id.toString()
+        val favorites = getFavorites()
+        val isFavorite = favorites.contains(currentRecipeId)
+        binding.ibAddFavorites.setImageResource(if (isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_empty)
         binding.ibAddFavorites.setOnClickListener {
-            isFavorite = !isFavorite
-
             if (isFavorite) {
-                binding.ibAddFavorites.setImageResource(R.drawable.ic_heart)
-            } else {
+                favorites.remove(currentRecipeId)
                 binding.ibAddFavorites.setImageResource(R.drawable.ic_heart_empty)
+            } else {
+                favorites.add(currentRecipeId)
+                binding.ibAddFavorites.setImageResource(R.drawable.ic_heart)
             }
+            saveFavorites(favorites)
         }
+    }
+
+    private fun getFavorites(): MutableSet<String> {
+        val sharedPrefs = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val favoritesSet = sharedPrefs.getStringSet(FAVORITES_KEY, emptySet()) ?: emptySet()
+        return HashSet(favoritesSet)
+    }
+
+    private fun saveFavorites(favorites: MutableSet<String>) {
+        val sharedPrefs = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        sharedPrefs.edit { putStringSet(FAVORITES_KEY, favorites) }
     }
 
     private fun initRecycler() {
