@@ -50,9 +50,9 @@ class RecipeFragment : Fragment() {
 
     private fun initUI() {
         binding.tvRecipeTitle.text = recipe?.title ?: ""
+
         try {
-            val drawable = Drawable.createFromStream(requireContext().assets
-                .open(recipe?.imageUrl ?: ""), null)
+            val drawable = Drawable.createFromStream(requireContext().assets.open(recipe?.imageUrl ?: ""), null)
             binding.ivRecipeImage.setImageDrawable(drawable)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -61,6 +61,7 @@ class RecipeFragment : Fragment() {
         val currentRecipeId: String = recipe?.id.toString()
         val favorites = getFavorites()
         val isFavorite = favorites.contains(currentRecipeId)
+
         binding.ibAddFavorites.setImageResource(if (isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_empty)
         binding.ibAddFavorites.setOnClickListener {
             if (isFavorite) {

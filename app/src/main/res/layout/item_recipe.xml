@@ -7,7 +7,7 @@
     android:id="@+id/cvItemRecipe"
     android:layout_marginStart="@dimen/main_space_half_16"
     android:layout_marginEnd="@dimen/main_space_half_16"
-    android:layout_marginTop="@dimen/main_space_16"
+    android:layout_marginTop="@dimen/main_space_half_16"
     android:background="@color/white_color"
     android:foreground="?selectableItemBackground"
     android:clickable="true"

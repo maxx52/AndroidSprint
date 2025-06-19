@@ -63,7 +63,7 @@ class RecipesListFragment : Fragment() {
         })
     }
 
-    fun openRecipeByRecipeId(recipeId: Int) {
+    private fun openRecipeByRecipeId(recipeId: Int) {
         val recipe = STUB.getRecipesByCategoryId(categoryId ?: -1).find { it.id == recipeId }
         if (recipe == null) {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
