@@ -46,11 +46,15 @@ class FavoritesFragment : Fragment() {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
             return
         }
-        val bundle = Bundle()
-        bundle.putInt(ARG_RECIPE_ID, recipeId)
         parentFragmentManager.commit {
-            replace(R.id.mainContainer, RecipeFragment::class.java, bundle)
+            replace(R.id.mainContainer, RecipeFragment.newInstance(recipeId))
             addToBackStack(null)
+        }
+    }
+
+    private fun RecipeFragment.Companion.newInstance(recipeId: Int): Fragment = RecipeFragment().apply {
+        arguments = Bundle().apply {
+            putInt(ARG_RECIPE_ID, recipeId)
         }
     }
 
