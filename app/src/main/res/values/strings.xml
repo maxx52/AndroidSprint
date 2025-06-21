@@ -32,4 +32,6 @@
     <string name="text_method_number">1. </string>
     <string name="text_1">1</string>
     <string name="text_image_of_favorites">Image of favorites</string>
+    <string name="text_image_of_favorite_header">Image of favorite header</string>
+    <string name="text_favorites_title">Избранное</string>
 </resources>
