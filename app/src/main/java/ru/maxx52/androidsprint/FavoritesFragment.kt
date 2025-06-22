@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import ru.maxx52.androidsprint.databinding.FragmentFavoritesBinding
 import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
 import ru.maxx52.androidsprint.entities.FAVORITES_KEY
@@ -46,15 +47,13 @@ class FavoritesFragment : Fragment() {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
             return
         }
-        parentFragmentManager.commit {
-            replace(R.id.mainContainer, RecipeFragment.newInstance(recipeId))
-            addToBackStack(null)
-        }
-    }
 
-    private fun RecipeFragment.Companion.newInstance(recipeId: Int): Fragment = RecipeFragment().apply {
-        arguments = Bundle().apply {
+        val bundle = Bundle().apply {
             putInt(ARG_RECIPE_ID, recipeId)
+        }
+        parentFragmentManager.commit {
+            replace<RecipeFragment>(R.id.mainContainer, args = bundle)
+            addToBackStack(null)
         }
     }
 

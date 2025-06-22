@@ -31,9 +31,8 @@
             style="@style/StyleTitle14.Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_space_half_16"
+            android:layout_marginVertical="@dimen/main_space_half_16"
             android:layout_marginStart="@dimen/main_space_half_16"
-            android:layout_marginBottom="@dimen/main_space_half_16"
             tools:text="@string/text_burgers" />
         
     </LinearLayout>

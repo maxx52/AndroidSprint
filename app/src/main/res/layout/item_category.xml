@@ -39,9 +39,8 @@
             style="@style/StyleTitle12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_space_half_16"
+            android:layout_marginVertical="@dimen/main_space_half_16"
             android:layout_marginStart="@dimen/main_space_half_16"
-            android:layout_marginBottom="@dimen/main_space_half_16"
             tools:text="@string/burger_description"/>
 
     </LinearLayout>
