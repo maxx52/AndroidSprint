@@ -30,7 +30,6 @@
     <dimen name="seekbar_thumb_height">30dp</dimen>
     <dimen name="space_4dp">4dp</dimen>
     <dimen name="space_favorites">5dp</dimen>
-    <dimen name="half_space_favorites">2.5dp</dimen>
     <dimen name="size_of_ic_favorites">40dp</dimen>
     <dimen name="_24dp">24dp</dimen>
 </resources>

@@ -125,6 +125,4 @@ class RecipeFragment : Fragment() {
             isLastItemDecorated = false
         }
     }
-
-    companion object
 }

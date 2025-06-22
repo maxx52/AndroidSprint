@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
 import ru.maxx52.androidsprint.entities.STUB
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_ID
@@ -53,13 +54,9 @@ class FragmentListCategories : Fragment() {
             putString(ARG_CATEGORY_IMAGE_URL, category.imageUrl)
         }
 
-        val recipesListFragment = RecipesListFragment().apply {
-            arguments = bundle
-        }
-
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.mainContainer, recipesListFragment)
+            replace<RecipesListFragment>(R.id.mainContainer, args = bundle)
         }
     }
 }
