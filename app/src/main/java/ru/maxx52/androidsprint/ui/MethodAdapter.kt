@@ -1,4 +1,4 @@
-package ru.maxx52.androidsprint
+package ru.maxx52.androidsprint.ui
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

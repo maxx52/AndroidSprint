@@ -1,4 +1,4 @@
-package ru.maxx52.androidsprint.entities
+package ru.maxx52.androidsprint.model
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable

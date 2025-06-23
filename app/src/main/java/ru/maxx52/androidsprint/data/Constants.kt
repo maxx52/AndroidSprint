@@ -1,4 +1,4 @@
-package ru.maxx52.androidsprint.entities
+package ru.maxx52.androidsprint.data
 
 const val ARG_RECIPE_ID = "recipeId"
 const val ARG_CATEGORY_IMAGE_URL = "categoryImageUrl"

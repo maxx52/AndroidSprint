@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/padding_recycler"
     android:layout_marginEnd="@dimen/padding_recycler"
     android:layout_marginBottom="@dimen/main_space_half_16"
-    tools:context=".MethodAdapter"
+    tools:context=".ui.MethodAdapter"
     android:orientation="horizontal">
 
     <TextView

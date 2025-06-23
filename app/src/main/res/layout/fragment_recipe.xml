@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/mainContainerOfRecipe"
     android:background="@color/white_color"
-    tools:context=".RecipeFragment"
+    tools:context=".ui.RecipeFragment"
     tools:ignore="ScrollViewCount">
 
     <LinearLayout

@@ -1,11 +1,15 @@
-package ru.maxx52.androidsprint.entities
+package ru.maxx52.androidsprint.data
+
+import ru.maxx52.androidsprint.model.Category
+import ru.maxx52.androidsprint.model.Ingredient
+import ru.maxx52.androidsprint.model.Recipe
 
 object STUB {
     private val categories: List<Category> = listOf(
-        Category(0, "Бургеры", "Рецепты всех популярных видов бургеров","burger.png"),
-        Category(1,"Пицца","Пицца на любой вкус и цвет. Лучшая подборка для тебя", "pizza.png"),
-        Category(2,"Десерты","Самые вкусные рецепты десертов специально для вас","dessert.png"),
-        Category(3,"Салаты","Хрустящий калейдоскоп под соусом вдохновения","salad.png"),
+        Category(0, "Бургеры", "Рецепты всех популярных видов бургеров", "burger.png"),
+        Category(1, "Пицца", "Пицца на любой вкус и цвет. Лучшая подборка для тебя", "pizza.png"),
+        Category(2, "Десерты", "Самые вкусные рецепты десертов специально для вас", "dessert.png"),
+        Category(3, "Салаты", "Хрустящий калейдоскоп под соусом вдохновения", "salad.png"),
         Category(4, "Рыба", "Печеная, жареная, сушеная, любая рыба на твой вкус", "fish.png"),
         Category(5, "Супы", "От классики до экзотики: мир в одной тарелке", "soup.png"),
     )

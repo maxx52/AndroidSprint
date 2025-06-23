@@ -10,7 +10,7 @@
     android:foreground="?selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".RecipesListAdapter"
+    tools:context=".ui.RecipesListAdapter"
     app:cardCornerRadius="@dimen/main_space_half_16">
 
     <LinearLayout

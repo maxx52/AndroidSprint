@@ -1,10 +1,10 @@
-package ru.maxx52.androidsprint
+package ru.maxx52.androidsprint.ui
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.maxx52.androidsprint.entities.Recipe
+import ru.maxx52.androidsprint.model.Recipe
 import ru.maxx52.androidsprint.databinding.ItemRecipeBinding
 
 class RecipesListAdapter(private val dataSet: List<Recipe>) :

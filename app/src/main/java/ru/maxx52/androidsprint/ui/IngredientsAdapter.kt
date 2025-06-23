@@ -1,11 +1,11 @@
-package ru.maxx52.androidsprint
+package ru.maxx52.androidsprint.ui
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.maxx52.androidsprint.databinding.ItemIngredientsBinding
-import ru.maxx52.androidsprint.entities.Ingredient
+import ru.maxx52.androidsprint.model.Ingredient
 import java.math.BigDecimal
 import java.math.RoundingMode
 

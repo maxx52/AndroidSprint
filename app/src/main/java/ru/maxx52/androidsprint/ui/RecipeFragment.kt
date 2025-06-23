@@ -1,4 +1,4 @@
-package ru.maxx52.androidsprint
+package ru.maxx52.androidsprint.ui
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import android.widget.SeekBar
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
-import ru.maxx52.androidsprint.entities.Recipe
-import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
-import ru.maxx52.androidsprint.entities.NON_RECIPE
-import ru.maxx52.androidsprint.entities.PREFS_NAME
-import ru.maxx52.androidsprint.entities.FAVORITES_KEY
-import ru.maxx52.androidsprint.entities.STUB.getRecipeById
+import ru.maxx52.androidsprint.model.Recipe
+import ru.maxx52.androidsprint.data.ARG_RECIPE_ID
+import ru.maxx52.androidsprint.data.NON_RECIPE
+import ru.maxx52.androidsprint.data.PREFS_NAME
+import ru.maxx52.androidsprint.data.FAVORITES_KEY
+import ru.maxx52.androidsprint.data.STUB.getRecipeById
 import androidx.core.content.edit
+import ru.maxx52.androidsprint.R
 
 class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
