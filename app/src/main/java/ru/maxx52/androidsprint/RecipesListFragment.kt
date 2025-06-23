@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_ID
 import ru.maxx52.androidsprint.entities.ARG_CATEGORY_IMAGE_URL
@@ -63,7 +64,7 @@ class RecipesListFragment : Fragment() {
         })
     }
 
-    fun openRecipeByRecipeId(recipeId: Int) {
+    private fun openRecipeByRecipeId(recipeId: Int) {
         val recipe = STUB.getRecipesByCategoryId(categoryId ?: -1).find { it.id == recipeId }
         if (recipe == null) {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
@@ -74,13 +75,9 @@ class RecipesListFragment : Fragment() {
             putInt(ARG_RECIPE_ID, recipe.id)
         }
 
-        val recipeFragment = RecipeFragment().apply {
-            arguments = bundle
-        }
-
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.mainContainer, recipeFragment)
+            replace<RecipeFragment>(R.id.mainContainer, args = bundle)
         }
     }
 

@@ -2,6 +2,7 @@
 <resources>
     <dimen name="one_pixel">1dp</dimen>
     <dimen name="main_text_size">14sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
     <dimen name="main_space_16">16dp</dimen>
     <dimen name="marginBottom">55dp</dimen>
     <dimen name="paddingStartEnd">35.5dp</dimen>
@@ -29,6 +30,6 @@
     <dimen name="seekbar_thumb_height">30dp</dimen>
     <dimen name="space_4dp">4dp</dimen>
     <dimen name="space_favorites">5dp</dimen>
-    <dimen name="half_space_favorites">2.5dp</dimen>
     <dimen name="size_of_ic_favorites">40dp</dimen>
+    <dimen name="_24dp">24dp</dimen>
 </resources>

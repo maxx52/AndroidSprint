@@ -5,9 +5,7 @@
     android:layout_height="@dimen/card_height"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvItemCategory"
-    android:layout_marginStart="@dimen/main_space_half_16"
-    android:layout_marginEnd="@dimen/main_space_half_16"
-    android:layout_marginTop="@dimen/main_space_16"
+    android:layout_margin="@dimen/main_space_half_16"
     android:background="@color/white_color"
     android:foreground="?selectableItemBackground"
     android:clickable="true"
@@ -41,8 +39,8 @@
             style="@style/StyleTitle12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_space_half_16"
-            android:layout_marginStart="@dimen/main_space_half_16"
+            android:layout_marginVertical="@dimen/main_space_half_16"
+            android:layout_marginHorizontal="@dimen/main_space_half_16"
             tools:text="@string/burger_description"/>
 
     </LinearLayout>
