@@ -7,6 +7,12 @@ import ru.maxx52.androidsprint.model.Ingredient
 import ru.maxx52.androidsprint.model.Recipe
 
 class RecipeViewModel : ViewModel() {
+    data class RecipeState(
+        val recipe: Recipe? = null,
+        val currentPortions: Int = 1,
+        val ingredients: List<Ingredient> = emptyList()
+    )
+
     private val _recipe = MutableLiveData<Recipe>()
     val recipe: LiveData<Recipe> = _recipe
 
