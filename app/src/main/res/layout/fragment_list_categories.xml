@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/white_color"
     android:orientation="vertical"
-    tools:context=".FragmentListCategories">
+    tools:context=".ui.FragmentListCategories">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

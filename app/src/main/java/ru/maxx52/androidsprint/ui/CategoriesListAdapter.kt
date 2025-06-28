@@ -1,4 +1,4 @@
-package ru.maxx52.androidsprint
+package ru.maxx52.androidsprint.ui
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.maxx52.androidsprint.entities.Category
+import ru.maxx52.androidsprint.R
+import ru.maxx52.androidsprint.model.Category
 
 class CategoriesListAdapter(private val dataSet: List<Category>):
     RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {

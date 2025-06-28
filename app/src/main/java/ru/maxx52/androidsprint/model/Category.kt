@@ -1,4 +1,4 @@
-package ru.maxx52.androidsprint.entities
+package ru.maxx52.androidsprint.model
 
 data class Category(
     val id: Int,

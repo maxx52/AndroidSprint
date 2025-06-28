@@ -1,4 +1,4 @@
-package ru.maxx52.androidsprint
+package ru.maxx52.androidsprint.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -9,13 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.FragmentFavoritesBinding
-import ru.maxx52.androidsprint.entities.ARG_RECIPE_ID
-import ru.maxx52.androidsprint.entities.FAVORITES_KEY
-import ru.maxx52.androidsprint.entities.NON_RECIPE
-import ru.maxx52.androidsprint.entities.PREFS_NAME
-import ru.maxx52.androidsprint.entities.Recipe
-import ru.maxx52.androidsprint.entities.STUB
+import ru.maxx52.androidsprint.data.ARG_RECIPE_ID
+import ru.maxx52.androidsprint.data.FAVORITES_KEY
+import ru.maxx52.androidsprint.data.NON_RECIPE
+import ru.maxx52.androidsprint.data.PREFS_NAME
+import ru.maxx52.androidsprint.model.Recipe
+import ru.maxx52.androidsprint.data.STUB
 
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null

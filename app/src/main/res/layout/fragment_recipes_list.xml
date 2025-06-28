@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white_color"
     android:orientation="vertical"
-    tools:context=".RecipesListFragment">
+    tools:context=".ui.RecipesListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="@dimen/header_height"

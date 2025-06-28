@@ -1,4 +1,4 @@
-package ru.maxx52.androidsprint
+package ru.maxx52.androidsprint.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -37,13 +38,13 @@ class MainActivity : AppCompatActivity() {
             btnCategory.setOnClickListener {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
-                    replace<FragmentListCategories>(R.id.mainContainer, args = null)
+                    replace<FragmentListCategories>(R.id.mainContainer)
                 }
             }
             btnFavorites.setOnClickListener {
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
-                    replace<FavoritesFragment>(R.id.mainContainer, args = null)
+                    replace<FavoritesFragment>(R.id.mainContainer)
                 }
             }
         }
