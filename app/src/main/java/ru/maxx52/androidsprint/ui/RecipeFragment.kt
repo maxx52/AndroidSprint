@@ -3,6 +3,7 @@ package ru.maxx52.androidsprint.ui
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,12 +20,15 @@ import ru.maxx52.androidsprint.data.PREFS_NAME
 import ru.maxx52.androidsprint.data.FAVORITES_KEY
 import ru.maxx52.androidsprint.data.STUB.getRecipeById
 import androidx.core.content.edit
+import androidx.fragment.app.viewModels
 import ru.maxx52.androidsprint.R
+import ru.maxx52.androidsprint.ui.recipes.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
     private var recipe: Recipe? = null
+    private val viewModel: RecipeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRecipeBinding.inflate(inflater, container, false)
@@ -33,6 +37,9 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.state.observe(viewLifecycleOwner) { newState ->
+            Log.i("!!!", "isFavorite: ${newState.isFavorite}")
+        }
 
         val recipeId = arguments?.getInt(ARG_RECIPE_ID, -1) ?: -1
         if (recipeId == -1) {
