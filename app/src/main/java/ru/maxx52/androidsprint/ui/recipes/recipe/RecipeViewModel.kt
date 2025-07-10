@@ -1,13 +1,24 @@
 package ru.maxx52.androidsprint.ui.recipes.recipe
 
+import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import ru.maxx52.androidsprint.data.FAVORITES_KEY
+import ru.maxx52.androidsprint.data.PREFS_NAME
+import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.model.Ingredient
 import ru.maxx52.androidsprint.model.Recipe
+import androidx.core.content.edit
+import ru.maxx52.androidsprint.R
 
-class RecipeViewModel : ViewModel() {
+@SuppressLint("StaticFieldLeak")
+class RecipeViewModel(application: Application) : AndroidViewModel(application) {
     data class RecipeState(
         val recipe: Recipe? = null,
         val currentPortions: Int = 1,
@@ -15,30 +26,67 @@ class RecipeViewModel : ViewModel() {
         val isFavorite: Boolean = false
     )
 
-    private val _state = MutableLiveData<RecipeState>()
+    private val _state = MutableLiveData(RecipeState())
     val state: LiveData<RecipeState> = _state
-
+    private val context = application.applicationContext
     private val _portions = MutableLiveData(1)
     val portions: LiveData<Int> = _portions
 
-    init {
-        Log.i("!!!", "Initializing ViewModel...")
-        _state.value = RecipeState()
+    fun loadRecipe(recipeId: Int) {
+        Log.i("!!!", "Loading recipe with ID: $recipeId")
+        viewModelScope.launch {
+            val loadedRecipe = STUB.getRecipeById(recipeId)
+            if (loadedRecipe == null) {
+                Log.e("!!!", "Recipe with ID $recipeId was not found")
+                return@launch
+            }
+            val isFavorite = getFavorites().contains(recipeId.toString())
+            _state.value = RecipeState(recipe = loadedRecipe, isFavorite = isFavorite)
+        }
     }
 
-    fun toggleFavorite() {
+    init {
+        Log.i("!!!", "Initializing ViewModel...")
+    }
+
+    fun getFavorites(): MutableSet<String> {
+        val sharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return sharedPrefs.getStringSet(FAVORITES_KEY, emptySet<String>())?.toMutableSet() ?: mutableSetOf()
+    }
+
+    fun saveFavorites(updatedFavorites: Set<String>) {
+        val sharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        sharedPrefs.edit { putStringSet(FAVORITES_KEY, updatedFavorites) }
+    }
+
+    fun onFavoritesClicked() {
         val currentState = _state.value ?: return
-        _state.value = currentState.copy(isFavorite = !currentState.isFavorite)
+        val recipe = currentState.recipe ?: return
+        val newIsFavorite = !currentState.isFavorite
+        _state.value = currentState.copy(isFavorite = newIsFavorite)
+        updateFavorites(recipe.id, newIsFavorite)
+    }
+
+    private fun updateFavorites(recipeId: Int, isFavorite: Boolean) {
+        val favorites = getFavorites().toMutableSet()
+        val recipeIdStr = recipeId.toString()
+
+        if (isFavorite) {
+            favorites.add(recipeIdStr)
+        } else {
+            favorites.remove(recipeIdStr)
+        }
+        saveFavorites(favorites)
     }
 
     private fun recalculateIngredients() {
         val recipe = _state.value ?: return
-        val portions = _portions.value?.toBigDecimal() ?: return
+        val portions: Int = _portions.value ?: return
 
         val newIngredients = recipe.ingredients.map { ingr ->
             Ingredient(
                 description = ingr.description,
-                quantity = ingr.quantity.toBigDecimal().multiply(portions).toString(),
+                quantity = ingr.quantity.toBigDecimal().multiply(portions.toBigDecimal()).toString(),
                 unitOfMeasure = ingr.unitOfMeasure
             )
         }
