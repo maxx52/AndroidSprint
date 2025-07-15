@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import android.widget.SeekBar
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
-import ru.maxx52.androidsprint.model.Recipe
 import ru.maxx52.androidsprint.data.ARG_RECIPE_ID
 import ru.maxx52.androidsprint.data.NON_RECIPE
-import ru.maxx52.androidsprint.data.STUB.getRecipeById
 import androidx.fragment.app.viewModels
 import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.ui.recipes.recipe.RecipeViewModel
@@ -23,7 +21,6 @@ import ru.maxx52.androidsprint.ui.recipes.recipe.RecipeViewModel
 class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
-    private var recipe: Recipe? = null
     private val viewModel: RecipeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -36,15 +33,8 @@ class RecipeFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { newState ->
             Log.i("!!!", "isFavorite: ${newState.isFavorite}")
         }
-
         val recipeId = arguments?.getInt(ARG_RECIPE_ID, -1) ?: -1
         if (recipeId == -1) {
-            binding.tvRecipeTitle.text = NON_RECIPE
-            return
-        }
-        recipe = getRecipeById(recipeId)
-
-        if (recipe == null) {
             binding.tvRecipeTitle.text = NON_RECIPE
             return
         }
@@ -58,10 +48,7 @@ class RecipeFragment : Fragment() {
             val recipe = newState.recipe
             if (recipe != null) {
                 binding.tvRecipeTitle.text = recipe.title
-                val currentRecipeId = recipe.id.toString()
-                val favorites = viewModel.getFavorites().toMutableSet()
-                val isFavorite = favorites.contains(currentRecipeId)
-                binding.ibAddFavorites.setImageResource(if (isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_empty)
+                binding.ibAddFavorites.setImageResource(if (newState.isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_empty)
                 binding.ibAddFavorites.setOnClickListener {
                     viewModel.onFavoritesClicked()
                 }
@@ -81,15 +68,21 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        binding.rvIngredients.adapter = IngredientsAdapter(recipe?.ingredients ?: emptyList())
-        binding.rvMethod.adapter = MethodAdapter(recipe?.method ?: emptyList())
+        binding.rvIngredients.adapter = IngredientsAdapter(emptyList())
+        binding.rvMethod.adapter = MethodAdapter(emptyList())
         binding.rvIngredients.addItemDecoration(createDivider())
         binding.rvMethod.addItemDecoration(createDivider())
+
+        viewModel.state.observe(viewLifecycleOwner) { newState ->
+            val adapter = binding.rvIngredients.adapter as? IngredientsAdapter
+            adapter?.updateIngredients(newState.ingredients, newState.currentPortions.toBigDecimal())
+        }
+
         binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.tvPortionDescription.text = progress.toString()
-                (binding.rvIngredients.adapter as? IngredientsAdapter)?.updateIngredients(progress.toBigDecimal())
+                viewModel.updatePortions(progress)
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })

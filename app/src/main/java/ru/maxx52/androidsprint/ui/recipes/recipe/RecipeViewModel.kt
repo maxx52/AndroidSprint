@@ -93,4 +93,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
         _state.value = recipe.copy(ingredients = newIngredients)
     }
+
+    fun updatePortions(newPortions: Int) {
+        _portions.value = newPortions
+        val newState = _state.value?.copy(currentPortions = newPortions)
+        _state.value = newState
+    }
 }
