@@ -14,7 +14,19 @@ class IngredientsAdapter(
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
     private var quantity: BigDecimal = BigDecimal.ONE
 
-    inner class ViewHolder(val binding: ItemIngredientsBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemIngredientsBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(ingredient: Ingredient) {
+            val displayQuantity = (ingredient.quantity.toBigDecimalOrNull() ?: BigDecimal.ZERO)
+                .multiply(quantity)
+                .setScale(1, RoundingMode.HALF_UP)
+                .stripTrailingZeros()
+                .toPlainString()
+
+            val displayText = "$displayQuantity ${ingredient.unitOfMeasure}"
+            binding.tvIngredientName.text = ingredient.description
+            binding.tvIngredientCount.text = displayText
+        }
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemIngredientsBinding.inflate(LayoutInflater
@@ -24,21 +36,14 @@ class IngredientsAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val ingredient = dataSet[position]
-        val displayQuantity = (ingredient.quantity.toBigDecimalOrNull() ?: BigDecimal.ZERO)
-            .multiply(quantity)
-            .setScale(1, RoundingMode.HALF_UP)
-            .stripTrailingZeros()
-            .toPlainString()
-        val displayText = "$displayQuantity ${ingredient.unitOfMeasure}"
-        viewHolder.binding.tvIngredientName.text = ingredient.description
-        viewHolder.binding.tvIngredientCount.text = displayText
+        viewHolder.bind(ingredient)
     }
 
     override fun getItemCount() = dataSet.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateIngredients(quantity: BigDecimal) {
-        this.quantity = quantity
+    fun updateIngredients(newIngredients: List<Ingredient>, newPortions: BigDecimal) {
+        dataSet = newIngredients
         notifyDataSetChanged()
     }
 }
