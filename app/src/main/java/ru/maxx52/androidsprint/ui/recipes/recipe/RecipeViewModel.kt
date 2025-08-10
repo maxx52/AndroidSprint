@@ -19,6 +19,7 @@ import ru.maxx52.androidsprint.R
 
 @SuppressLint("StaticFieldLeak")
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
+
     data class RecipeState(
         val recipe: Recipe? = null,
         val currentPortions: Int = 1,
@@ -28,9 +29,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _state = MutableLiveData(RecipeState())
     val state: LiveData<RecipeState> = _state
-    private val context = application.applicationContext
-    private val _portions = MutableLiveData(1)
-    val portions: LiveData<Int> = _portions
 
     fun loadRecipe(recipeId: Int) {
         Log.i("!!!", "Loading recipe with ID: $recipeId")
@@ -40,8 +38,15 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                 Log.e("!!!", "Recipe with ID $recipeId was not found")
                 return@launch
             }
+
             val isFavorite = getFavorites().contains(recipeId.toString())
-            _state.value = RecipeState(recipe = loadedRecipe, isFavorite = isFavorite)
+            _state.value = RecipeState(
+                recipe = loadedRecipe,
+                isFavorite = isFavorite,
+                ingredients = loadedRecipe.ingredients,
+                currentPortions = 1
+            )
+            Log.d("!!!", "Loaded recipe: ${loadedRecipe.title}, isFavorite: $isFavorite, ingredients size: ${loadedRecipe.ingredients.size}")
         }
     }
 
@@ -49,13 +54,13 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         Log.i("!!!", "Initializing ViewModel...")
     }
 
-    fun getFavorites(): MutableSet<String> {
-        val sharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private fun getFavorites(): MutableSet<String> {
+        val sharedPrefs = getApplication<Application>().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         return sharedPrefs.getStringSet(FAVORITES_KEY, emptySet<String>())?.toMutableSet() ?: mutableSetOf()
     }
 
-    fun saveFavorites(updatedFavorites: Set<String>) {
-        val sharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private fun saveFavorites(updatedFavorites: Set<String>) {
+        val sharedPrefs = getApplication<Application>().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         sharedPrefs.edit { putStringSet(FAVORITES_KEY, updatedFavorites) }
     }
 
@@ -79,11 +84,11 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         saveFavorites(favorites)
     }
 
-    private fun recalculateIngredients() {
-        val recipe = _state.value ?: return
-        val portions: Int = _portions.value ?: return
+    fun recalculateIngredients() {
+        val currentState = _state.value ?: return
+        val portions: Int = currentState.currentPortions
 
-        val newIngredients = recipe.ingredients.map { ingr ->
+        val newIngredients = currentState.ingredients.map { ingr ->
             Ingredient(
                 description = ingr.description,
                 quantity = ingr.quantity.toBigDecimal().multiply(portions.toBigDecimal()).toString(),
@@ -91,12 +96,11 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             )
         }
 
-        _state.value = recipe.copy(ingredients = newIngredients)
+        _state.value = currentState.copy(ingredients = newIngredients)
     }
 
     fun updatePortions(newPortions: Int) {
-        _portions.value = newPortions
-        val newState = _state.value?.copy(currentPortions = newPortions)
-        _state.value = newState
+        val currentState = _state.value ?: return
+        _state.value = currentState.copy(currentPortions = newPortions)
     }
 }

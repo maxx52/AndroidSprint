@@ -75,12 +75,13 @@ class RecipeFragment : Fragment() {
 
         viewModel.state.observe(viewLifecycleOwner) { newState ->
             val adapter = binding.rvIngredients.adapter as? IngredientsAdapter
-            adapter?.updateIngredients(newState.ingredients, newState.currentPortions.toBigDecimal())
+            adapter?.updateIngredients(newState.ingredients)
         }
 
         binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 viewModel.updatePortions(progress)
+                viewModel.recalculateIngredients()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
