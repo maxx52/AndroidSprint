@@ -76,6 +76,9 @@ class RecipeFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { newState ->
             val adapter = binding.rvIngredients.adapter as? IngredientsAdapter
             adapter?.updateIngredients(newState.ingredients)
+
+            val methodAdapter = binding.rvMethod.adapter as? MethodAdapter
+            methodAdapter?.updateMethods(newState.recipe?.method ?: emptyList())
         }
 
         binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {

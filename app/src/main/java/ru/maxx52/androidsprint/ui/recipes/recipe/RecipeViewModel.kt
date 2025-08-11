@@ -87,15 +87,14 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     fun recalculateIngredients() {
         val currentState = _state.value ?: return
         val portions: Int = currentState.currentPortions
-
-        val newIngredients = currentState.ingredients.map { ingr ->
+        val originalIngredients = currentState.recipe?.ingredients ?: emptyList()
+        val newIngredients = originalIngredients.map { ingr ->
             Ingredient(
                 description = ingr.description,
                 quantity = ingr.quantity.toBigDecimal().multiply(portions.toBigDecimal()).toString(),
                 unitOfMeasure = ingr.unitOfMeasure
             )
         }
-
         _state.value = currentState.copy(ingredients = newIngredients)
     }
 
