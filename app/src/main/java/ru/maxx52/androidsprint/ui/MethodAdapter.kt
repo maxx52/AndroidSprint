@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.maxx52.androidsprint.databinding.ItemMethodBinding
 
-class MethodAdapter(private val dataSet: List<String>)
+class MethodAdapter(private var dataSet: List<String>)
     : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemMethodBinding) : RecyclerView.ViewHolder(binding.root)
@@ -23,4 +23,8 @@ class MethodAdapter(private val dataSet: List<String>)
     }
 
     override fun getItemCount() = dataSet.size
+
+    fun updateMethods(methods: List<String>) {
+        methods.also { dataSet = it }
+    }
 }
