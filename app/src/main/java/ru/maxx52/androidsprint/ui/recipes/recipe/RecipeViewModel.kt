@@ -1,6 +1,5 @@
 package ru.maxx52.androidsprint.ui.recipes.recipe
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -18,7 +17,6 @@ import ru.maxx52.androidsprint.model.Recipe
 import androidx.core.content.edit
 import java.io.IOException
 
-@SuppressLint("StaticFieldLeak")
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
     data class RecipeState(
