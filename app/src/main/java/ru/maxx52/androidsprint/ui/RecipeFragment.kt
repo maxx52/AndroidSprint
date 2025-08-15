@@ -1,6 +1,5 @@
 package ru.maxx52.androidsprint.ui
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -53,13 +52,13 @@ class RecipeFragment : Fragment() {
                     viewModel.onFavoritesClicked()
                 }
 
-                try {
-                    val drawable = Drawable.createFromStream(requireContext()
-                        .assets.open(recipe.imageUrl), null)
+                val drawable = newState.recipeImage
+                if (drawable != null) {
                     binding.ivRecipeImage.setImageDrawable(drawable)
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                } else {
+                    binding.ivRecipeImage.setImageDrawable(null)
                 }
+
             } else {
                 binding.tvRecipeTitle.text = ""
                 binding.ivRecipeImage.setImageDrawable(null)

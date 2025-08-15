@@ -1,8 +1,8 @@
 package ru.maxx52.androidsprint.ui.recipes.recipe
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -15,16 +15,16 @@ import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.model.Ingredient
 import ru.maxx52.androidsprint.model.Recipe
 import androidx.core.content.edit
-import ru.maxx52.androidsprint.R
+import java.io.IOException
 
-@SuppressLint("StaticFieldLeak")
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
     data class RecipeState(
         val recipe: Recipe? = null,
         val currentPortions: Int = 1,
         val ingredients: List<Ingredient> = emptyList(),
-        val isFavorite: Boolean = false
+        val isFavorite: Boolean = false,
+        val recipeImage: Drawable? = null
     )
 
     private val _state = MutableLiveData(RecipeState())
@@ -39,12 +39,21 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                 return@launch
             }
 
+            val drawable = try {
+                val inputStream = getApplication<Application>().assets.open(loadedRecipe.imageUrl)
+                Drawable.createFromStream(inputStream, null)
+            } catch (e: IOException) {
+                Log.e("!!!", "Failed to load image for recipe with ID $recipeId", e)
+                null
+            }
+
             val isFavorite = getFavorites().contains(recipeId.toString())
             _state.value = RecipeState(
                 recipe = loadedRecipe,
                 isFavorite = isFavorite,
                 ingredients = loadedRecipe.ingredients,
-                currentPortions = 1
+                currentPortions = 1,
+                recipeImage = drawable
             )
             Log.d("!!!", "Loaded recipe: ${loadedRecipe.title}, isFavorite: $isFavorite, ingredients size: ${loadedRecipe.ingredients.size}")
         }
