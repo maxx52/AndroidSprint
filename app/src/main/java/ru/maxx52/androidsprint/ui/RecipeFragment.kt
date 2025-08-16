@@ -39,7 +39,6 @@ class RecipeFragment : Fragment() {
         }
         viewModel.loadRecipe(recipeId)
         initUI()
-        initRecycler()
     }
 
     private fun initUI() {
@@ -63,23 +62,18 @@ class RecipeFragment : Fragment() {
                 binding.tvRecipeTitle.text = ""
                 binding.ivRecipeImage.setImageDrawable(null)
             }
-        }
-    }
 
-    private fun initRecycler() {
-        binding.rvIngredients.adapter = IngredientsAdapter(emptyList())
-        binding.rvMethod.adapter = MethodAdapter(emptyList())
-        binding.rvIngredients.addItemDecoration(createDivider())
-        binding.rvMethod.addItemDecoration(createDivider())
-
-        viewModel.state.observe(viewLifecycleOwner) { newState ->
-            val adapter = binding.rvIngredients.adapter as? IngredientsAdapter
-            adapter?.updateIngredients(newState.ingredients)
+            val ingredientsAdapter = binding.rvIngredients.adapter as? IngredientsAdapter
+            ingredientsAdapter?.submitList(newState.ingredients)
 
             val methodAdapter = binding.rvMethod.adapter as? MethodAdapter
-            methodAdapter?.updateMethods(newState.recipe?.method ?: emptyList())
+            methodAdapter?.submitList(newState.recipe?.method ?: emptyList())
         }
 
+        binding.rvIngredients.adapter = IngredientsAdapter()
+        binding.rvMethod.adapter = MethodAdapter()
+        binding.rvIngredients.addItemDecoration(createDivider())
+        binding.rvMethod.addItemDecoration(createDivider())
         binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 viewModel.updatePortions(progress)
