@@ -1,15 +1,24 @@
 package ru.maxx52.androidsprint.ui
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.maxx52.androidsprint.databinding.ItemIngredientsBinding
 import ru.maxx52.androidsprint.model.Ingredient
 
-class IngredientsAdapter(
-    private var dataSet: List<Ingredient>
-) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+class IngredientsAdapter : ListAdapter<Ingredient, IngredientsAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Ingredient>() {
+            override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean =
+                oldItem.description == newItem.description
+
+            override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean =
+                oldItem == newItem
+        }
+    }
 
     inner class ViewHolder(val binding: ItemIngredientsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ingredient: Ingredient) {
@@ -19,21 +28,14 @@ class IngredientsAdapter(
         }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemIngredientsBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemIngredientsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val ingredient = dataSet[position]
-        viewHolder.bind(ingredient)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount() = dataSet.size
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateIngredients(newIngredients: List<Ingredient>) {
-        dataSet = newIngredients
-        notifyDataSetChanged()
-    }
+    override fun getItemCount(): Int = currentList.size
 }
