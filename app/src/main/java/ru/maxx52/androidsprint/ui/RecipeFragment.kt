@@ -21,6 +21,18 @@ class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
     private val viewModel: RecipeViewModel by viewModels()
+    private lateinit var ingredientsAdapter: IngredientsAdapter
+
+    inner class PortionSeekBarListener : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            ingredientsAdapter.triggerChangeIngredients(progress)
+            viewModel.updatePortions(progress)
+            viewModel.recalculateIngredients()
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRecipeBinding.inflate(inflater, container, false)
@@ -38,10 +50,18 @@ class RecipeFragment : Fragment() {
             return
         }
         viewModel.loadRecipe(recipeId)
+        binding.sbPortion.setOnSeekBarChangeListener(PortionSeekBarListener())
         initUI()
     }
 
     private fun initUI() {
+        ingredientsAdapter = IngredientsAdapter(::onChangeIngredients)
+        val methodAdapter = MethodAdapter()
+        binding.rvIngredients.adapter = ingredientsAdapter
+        binding.rvMethod.adapter = methodAdapter
+        binding.rvIngredients.addItemDecoration(createDivider())
+        binding.rvMethod.addItemDecoration(createDivider())
+
         viewModel.state.observe(viewLifecycleOwner) { newState ->
             val recipe = newState.recipe
             if (recipe != null) {
@@ -62,27 +82,9 @@ class RecipeFragment : Fragment() {
                 binding.tvRecipeTitle.text = ""
                 binding.ivRecipeImage.setImageDrawable(null)
             }
-
-            val ingredientsAdapter = binding.rvIngredients.adapter as? IngredientsAdapter
-            ingredientsAdapter?.submitList(newState.ingredients)
-
-            val methodAdapter = binding.rvMethod.adapter as? MethodAdapter
-            methodAdapter?.submitList(newState.recipe?.method ?: emptyList())
+            ingredientsAdapter.submitList(newState.ingredients)
+            methodAdapter.submitList(newState.recipe?.method ?: emptyList())
         }
-
-        binding.rvIngredients.adapter = IngredientsAdapter()
-        binding.rvMethod.adapter = MethodAdapter()
-        binding.rvIngredients.addItemDecoration(createDivider())
-        binding.rvMethod.addItemDecoration(createDivider())
-        binding.sbPortion.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.updatePortions(progress)
-                viewModel.recalculateIngredients()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
     }
 
     override fun onDestroyView() {
@@ -99,5 +101,9 @@ class RecipeFragment : Fragment() {
             setDividerColor(ContextCompat.getColor(requireContext(), R.color.grey_divider_color))
             isLastItemDecorated = false
         }
+    }
+
+    private fun onChangeIngredients(newPortions: Int) {
+        Log.d("RecipeFragment", "Количество порций изменено на $newPortions")
     }
 }
