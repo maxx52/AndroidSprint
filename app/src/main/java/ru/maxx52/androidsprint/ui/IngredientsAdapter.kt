@@ -1,25 +1,22 @@
 package ru.maxx52.androidsprint.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.maxx52.androidsprint.databinding.ItemIngredientsBinding
 import ru.maxx52.androidsprint.model.Ingredient
 
 class IngredientsAdapter(
-    private val onChangeIngredients: ((Int) -> Unit)? = null) : ListAdapter<Ingredient, IngredientsAdapter.ViewHolder>(DIFF_CALLBACK) {
+    private val onChangeIngredients: ((Int) -> Unit)? = null
+) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Ingredient>() {
-            override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean =
-                oldItem.description == newItem.description
-
-            override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean =
-                oldItem == newItem
+    var dataSet: MutableList<Ingredient> = mutableListOf()
+        @SuppressLint("NotifyDataSetChanged")
+        set(value) {
+            field = value
+            notifyDataSetChanged()
         }
-    }
 
     inner class ViewHolder(val binding: ItemIngredientsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ingredient: Ingredient) {
@@ -35,10 +32,10 @@ class IngredientsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(dataSet[position])
     }
 
-    override fun getItemCount(): Int = currentList.size
+    override fun getItemCount(): Int = dataSet.size
 
     fun triggerChangeIngredients(newPortions: Int) {
         onChangeIngredients?.invoke(newPortions)
