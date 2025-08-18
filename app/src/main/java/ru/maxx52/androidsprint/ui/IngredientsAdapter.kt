@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.maxx52.androidsprint.databinding.ItemIngredientsBinding
 import ru.maxx52.androidsprint.model.Ingredient
 
-class IngredientsAdapter : ListAdapter<Ingredient, IngredientsAdapter.ViewHolder>(DIFF_CALLBACK) {
+class IngredientsAdapter(
+    private val onChangeIngredients: ((Int) -> Unit)? = null) : ListAdapter<Ingredient, IngredientsAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Ingredient>() {
@@ -38,4 +39,8 @@ class IngredientsAdapter : ListAdapter<Ingredient, IngredientsAdapter.ViewHolder
     }
 
     override fun getItemCount(): Int = currentList.size
+
+    fun triggerChangeIngredients(newPortions: Int) {
+        onChangeIngredients?.invoke(newPortions)
+    }
 }
