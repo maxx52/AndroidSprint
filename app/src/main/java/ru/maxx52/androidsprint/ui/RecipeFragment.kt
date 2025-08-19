@@ -77,12 +77,12 @@ class RecipeFragment : Fragment() {
                 } else {
                     binding.ivRecipeImage.setImageDrawable(null)
                 }
-
             } else {
                 binding.tvRecipeTitle.text = ""
                 binding.ivRecipeImage.setImageDrawable(null)
             }
-            ingredientsAdapter.submitList(newState.ingredients)
+
+            ingredientsAdapter.dataSet = newState.ingredients.toMutableList()
             methodAdapter.submitList(newState.recipe?.method ?: emptyList())
         }
     }

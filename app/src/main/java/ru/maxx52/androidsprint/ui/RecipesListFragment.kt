@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_ID
@@ -17,6 +18,8 @@ import ru.maxx52.androidsprint.data.ARG_CATEGORY_NAME
 import ru.maxx52.androidsprint.data.ARG_RECIPE_ID
 import ru.maxx52.androidsprint.data.NON_RECIPE
 import ru.maxx52.androidsprint.data.STUB
+import ru.maxx52.androidsprint.model.Recipe
+import ru.maxx52.androidsprint.ui.recipes.recipelist.RecipesListViewModel
 
 class RecipesListFragment : Fragment() {
     private var _binding: FragmentRecipesListBinding? = null
@@ -26,6 +29,8 @@ class RecipesListFragment : Fragment() {
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
 
+    private val viewModel: RecipesListViewModel by viewModels()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRecipesListBinding.inflate(inflater, container, false)
         return binding.root
@@ -33,31 +38,29 @@ class RecipesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         arguments?.let {
             categoryId = it.getInt(ARG_CATEGORY_ID, -1)
             categoryName = it.getString(ARG_CATEGORY_NAME) ?: "Без названия"
             categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
         }
-        val drawable = Drawable.createFromStream(categoryImageUrl?.let {
-            binding.ivRecipe.context.assets.open(it)
-        }, null)
-        binding.tvTitleRecipe.text = categoryName
-        binding.ivRecipe.setImageDrawable(drawable)
+
         try {
-            val drawable = Drawable.createFromStream(requireContext().assets
-                .open(categoryImageUrl ?: ""), null)
+            val drawable = Drawable.createFromStream(requireContext().assets.open(categoryImageUrl ?: ""), null)
             binding.ivRecipe.setImageDrawable(drawable)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        initRecycler()
+
+        binding.tvTitleRecipe.text = categoryName
+        viewModel.state.observe(viewLifecycleOwner) { newState ->
+            initRecycler(newState.recipes)
+        }
+        categoryId?.let { viewModel.loadRecipesByCategory(it) }
     }
 
-    private fun initRecycler() {
-        val recipesAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId(categoryId ?: -1))
+    private fun initRecycler(recipes: List<Recipe>) {
+        val recipesAdapter = RecipesListAdapter(recipes)
         binding.rvRecipes.adapter = recipesAdapter
-
         recipesAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {
                 openRecipeByRecipeId(recipeId)
@@ -71,11 +74,9 @@ class RecipesListFragment : Fragment() {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
             return
         }
-
         val bundle = Bundle().apply {
             putInt(ARG_RECIPE_ID, recipe.id)
         }
-
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             replace<RecipeFragment>(R.id.mainContainer, args = bundle)
