@@ -7,16 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
 import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_ID
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_IMAGE_URL
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_NAME
+import ru.maxx52.androidsprint.model.Category
+import ru.maxx52.androidsprint.ui.categories.CategoriesViewModel
 
 class FragmentListCategories : Fragment() {
     private var _binding: FragmentListCategoriesBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
+
+    private val viewModel: CategoriesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +33,10 @@ class FragmentListCategories : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecycler()
+        viewModel.state.observe(viewLifecycleOwner) { newState ->
+            initRecycler(newState.categories)
+        }
+        viewModel.loadCategories()
     }
 
     override fun onDestroyView() {
@@ -36,10 +44,9 @@ class FragmentListCategories : Fragment() {
         _binding = null
     }
 
-    private fun initRecycler() {
-        val categoriesAdapter = CategoriesListAdapter(STUB.getCategories())
+    private fun initRecycler(categories: List<Category>?) {
+        val categoriesAdapter = CategoriesListAdapter(categories ?: emptyList())
         binding.rvCategories.adapter = categoriesAdapter
-
         categoriesAdapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
             override fun onItemClick(categoryId: Int) {
                 openRecipesByCategoryId(categoryId)
@@ -54,7 +61,6 @@ class FragmentListCategories : Fragment() {
             putString(ARG_CATEGORY_NAME, category.title)
             putString(ARG_CATEGORY_IMAGE_URL, category.imageUrl)
         }
-
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             replace<RecipesListFragment>(R.id.mainContainer, args = bundle)
