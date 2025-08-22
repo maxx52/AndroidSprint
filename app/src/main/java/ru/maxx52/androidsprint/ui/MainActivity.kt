@@ -5,8 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.findNavController
 import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.ActivityMainBinding
 
@@ -27,25 +26,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add(R.id.mainContainer, FragmentListCategories())
-            }
-        }
-
         with(binding) {
             btnCategory.setOnClickListener {
-                supportFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    replace<FragmentListCategories>(R.id.mainContainer)
-                }
+                findNavController(R.id.nav_host_fragment).navigate(R.id.fragmentListCategories)
             }
             btnFavorites.setOnClickListener {
-                supportFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    replace<FavoritesFragment>(R.id.mainContainer)
-                }
+                findNavController(R.id.nav_host_fragment).navigate(R.id.favoritesFragment)
             }
         }
     }
