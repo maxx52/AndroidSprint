@@ -73,10 +73,9 @@ class RecipesListFragment : Fragment() {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
             return
         }
-        val bundle = Bundle().apply {
-            putInt(ARG_RECIPE_ID, recipe.id)
-        }
-        findNavController().navigate(R.id.recipeFragment, args = bundle)
+
+        val directions = RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment()
+        findNavController().navigate(directions)
     }
 
     override fun onDestroyView() {
