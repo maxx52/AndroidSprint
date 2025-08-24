@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_ID
@@ -77,10 +76,7 @@ class RecipesListFragment : Fragment() {
         val bundle = Bundle().apply {
             putInt(ARG_RECIPE_ID, recipe.id)
         }
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<RecipeFragment>(R.id.mainContainer, args = bundle)
-        }
+        findNavController().navigate(R.id.recipeFragment, args = bundle)
     }
 
     override fun onDestroyView() {
