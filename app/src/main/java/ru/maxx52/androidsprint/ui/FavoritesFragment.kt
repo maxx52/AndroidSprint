@@ -60,7 +60,7 @@ class FavoritesFragment : Fragment() {
         val bundle = Bundle().apply {
             putInt(ARG_RECIPE_ID, recipeId)
         }
-        findNavController().navigate(R.id.recipeFragment)
+        findNavController().navigate(R.id.recipeFragment, args = bundle)
     }
 
     override fun onDestroyView() {
