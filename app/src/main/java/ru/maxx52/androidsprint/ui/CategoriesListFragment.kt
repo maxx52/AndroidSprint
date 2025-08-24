@@ -54,7 +54,10 @@ class FragmentListCategories : Fragment() {
     }
 
     fun openRecipesByCategoryId(categoryId: Int) {
-        val category = STUB.getCategories().find { it.id == categoryId } ?: return
+        val category = STUB.getCategories().find { it.id == categoryId }
+        if (category == null) {
+            throw IllegalArgumentException("Категория с id=$categoryId не найдена.")
+        }
         val bundle = Bundle().apply {
             putInt(ARG_CATEGORY_ID, category.id)
             putString(ARG_CATEGORY_NAME, category.title)
