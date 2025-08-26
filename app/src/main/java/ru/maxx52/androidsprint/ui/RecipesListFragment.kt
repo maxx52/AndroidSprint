@@ -9,12 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_ID
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_IMAGE_URL
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_NAME
-import ru.maxx52.androidsprint.data.ARG_RECIPE_ID
 import ru.maxx52.androidsprint.data.NON_RECIPE
 import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.model.Recipe
@@ -73,10 +71,9 @@ class RecipesListFragment : Fragment() {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
             return
         }
-        val bundle = Bundle().apply {
-            putInt(ARG_RECIPE_ID, recipe.id)
-        }
-        findNavController().navigate(R.id.recipeFragment, args = bundle)
+
+        val directions = RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeId)
+        findNavController().navigate(directions)
     }
 
     override fun onDestroyView() {

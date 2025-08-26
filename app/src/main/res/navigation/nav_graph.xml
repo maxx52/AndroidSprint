@@ -9,20 +9,57 @@
         android:id="@+id/favoritesFragment"
         android:name="ru.maxx52.androidsprint.ui.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_recipesListFragment"
+            app:destination="@id/recipesListFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_fragmentListCategories"
+            app:destination="@id/fragmentListCategories" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipeFragment"
         android:name="ru.maxx52.androidsprint.ui.RecipeFragment"
         android:label="fragment_recipe"
-        tools:layout="@layout/fragment_recipe" />
+        tools:layout="@layout/fragment_recipe" >
+        <action
+            android:id="@+id/action_recipeFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_recipeFragment_to_fragmentListCategories"
+            app:destination="@id/fragmentListCategories" />
+        <argument
+            android:name="recipeId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentListCategories"
         android:name="ru.maxx52.androidsprint.ui.FragmentListCategories"
         android:label="fragment_list_categories"
-        tools:layout="@layout/fragment_list_categories" />
+        tools:layout="@layout/fragment_list_categories" >
+        <action
+            android:id="@+id/action_fragmentListCategories_to_recipesListFragment"
+            app:destination="@id/recipesListFragment" />
+        <action
+            android:id="@+id/action_fragmentListCategories_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipesListFragment"
         android:name="ru.maxx52.androidsprint.ui.RecipesListFragment"
         android:label="fragment_recipes_list"
-        tools:layout="@layout/fragment_recipes_list" />
+        tools:layout="@layout/fragment_recipes_list" >
+        <action
+            android:id="@+id/action_recipesListFragment_to_fragmentListCategories"
+            app:destination="@id/fragmentListCategories" />
+        <action
+            android:id="@+id/action_recipesListFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_recipesListFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
 </navigation>

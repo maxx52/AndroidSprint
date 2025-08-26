@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import android.widget.SeekBar
 import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
-import ru.maxx52.androidsprint.data.ARG_RECIPE_ID
 import ru.maxx52.androidsprint.data.NON_RECIPE
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.ui.recipes.recipe.RecipeViewModel
 
@@ -21,6 +21,7 @@ class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
     private val viewModel: RecipeViewModel by viewModels()
+    private val args: RecipeFragmentArgs by navArgs()
     private lateinit var ingredientsAdapter: IngredientsAdapter
 
     inner class PortionSeekBarListener : SeekBar.OnSeekBarChangeListener {
@@ -44,7 +45,7 @@ class RecipeFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { newState ->
             Log.i("!!!", "isFavorite: ${newState.isFavorite}")
         }
-        val recipeId = arguments?.getInt(ARG_RECIPE_ID, -1) ?: -1
+        val recipeId = args.recipeId
         if (recipeId == -1) {
             binding.tvRecipeTitle.text = NON_RECIPE
             return
