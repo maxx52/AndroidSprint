@@ -5,9 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
 import ru.maxx52.androidsprint.data.STUB
@@ -61,9 +60,6 @@ class FragmentListCategories : Fragment() {
             putString(ARG_CATEGORY_NAME, category.title)
             putString(ARG_CATEGORY_IMAGE_URL, category.imageUrl)
         }
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<RecipesListFragment>(R.id.mainContainer, args = bundle)
-        }
+        findNavController().navigate(R.id.recipesListFragment, args = bundle)
     }
 }
