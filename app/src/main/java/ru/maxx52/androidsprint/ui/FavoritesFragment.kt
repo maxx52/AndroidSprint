@@ -6,13 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.FragmentFavoritesBinding
-import ru.maxx52.androidsprint.data.ARG_RECIPE_ID
 import ru.maxx52.androidsprint.data.NON_RECIPE
 import ru.maxx52.androidsprint.model.Recipe
 import ru.maxx52.androidsprint.data.STUB
@@ -57,10 +53,8 @@ class FavoritesFragment : Fragment() {
             return
         }
 
-        val bundle = Bundle().apply {
-            putInt(ARG_RECIPE_ID, recipeId)
-        }
-        findNavController().navigate(R.id.recipeFragment)
+        val directions = FavoritesFragmentDirections.actionFavoritesFragmentToRecipeFragment(recipeId)
+        findNavController().navigate(directions)
     }
 
     override fun onDestroyView() {
