@@ -17,7 +17,6 @@ import ru.maxx52.androidsprint.ui.recipes.favorites.FavoritesViewModel
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding ?: throw RuntimeException("FragmentFavoritesBinding = null")
-
     private val viewModel: FavoritesViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

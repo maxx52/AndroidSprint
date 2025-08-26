@@ -21,11 +21,9 @@ import ru.maxx52.androidsprint.ui.recipes.recipelist.RecipesListViewModel
 class RecipesListFragment : Fragment() {
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
-
     private var categoryId: Int? = null
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
-
     private val viewModel: RecipesListViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
