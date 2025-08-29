@@ -11,9 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
-import ru.maxx52.androidsprint.data.ARG_CATEGORY_ID
-import ru.maxx52.androidsprint.data.ARG_CATEGORY_IMAGE_URL
-import ru.maxx52.androidsprint.data.ARG_CATEGORY_NAME
 import ru.maxx52.androidsprint.data.NON_RECIPE
 import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.model.Recipe
