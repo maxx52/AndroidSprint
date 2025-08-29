@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_ID
 import ru.maxx52.androidsprint.data.ARG_CATEGORY_IMAGE_URL
@@ -25,6 +26,7 @@ class RecipesListFragment : Fragment() {
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
     private val viewModel: RecipesListViewModel by viewModels()
+    private val args: RecipesListFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRecipesListBinding.inflate(inflater, container, false)
@@ -33,10 +35,10 @@ class RecipesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            categoryId = it.getInt(ARG_CATEGORY_ID, -1)
-            categoryName = it.getString(ARG_CATEGORY_NAME) ?: "Без названия"
-            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL) ?: ""
+        args.let {
+            categoryId = it.Category.id
+            categoryName = it.Category.title
+            categoryImageUrl = it.Category.imageUrl
         }
 
         try {

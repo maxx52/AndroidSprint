@@ -13,9 +13,9 @@
         <action
             android:id="@+id/action_favoritesFragment_to_recipesListFragment"
             app:destination="@id/recipesListFragment"
-            app:enterAnim="@android:anim/accelerate_decelerate_interpolator"
-            app:exitAnim="@android:anim/accelerate_interpolator"
-            app:popEnterAnim="@android:anim/anticipate_overshoot_interpolator"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/bounce_interpolator" />
         <action
             android:id="@+id/action_favoritesFragment_to_fragmentListCategories"
@@ -63,10 +63,10 @@
         <action
             android:id="@+id/action_fragmentListCategories_to_recipesListFragment"
             app:destination="@id/recipesListFragment"
-            app:enterAnim="@android:anim/accelerate_interpolator"
-            app:exitAnim="@android:anim/anticipate_interpolator"
-            app:popEnterAnim="@android:anim/accelerate_interpolator"
-            app:popExitAnim="@android:anim/anticipate_interpolator" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_in_left" />
         <action
             android:id="@+id/action_fragmentListCategories_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
@@ -86,10 +86,10 @@
         <action
             android:id="@+id/action_recipesListFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
-            app:enterAnim="@android:anim/accelerate_decelerate_interpolator"
-            app:exitAnim="@android:anim/accelerate_decelerate_interpolator"
-            app:popEnterAnim="@android:anim/accelerate_decelerate_interpolator"
-            app:popExitAnim="@android:anim/accelerate_decelerate_interpolator" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_recipesListFragment_to_recipeFragment"
             app:destination="@id/recipeFragment"
