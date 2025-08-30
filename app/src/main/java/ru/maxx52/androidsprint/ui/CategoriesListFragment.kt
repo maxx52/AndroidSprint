@@ -51,9 +51,7 @@ class FragmentListCategories : Fragment() {
 
     fun openRecipesByCategoryId(categoryId: Int) {
         val category = STUB.getCategories().find { it.id == categoryId }
-        if (category == null) {
-            throw IllegalArgumentException("Категория с id=$categoryId не найдена.")
-        }
+            ?: throw IllegalArgumentException("Категория с id=$categoryId не найдена.")
         val directions = FragmentListCategoriesDirections.actionFragmentListCategoriesToRecipesListFragment(category)
         findNavController().navigate(directions)
     }

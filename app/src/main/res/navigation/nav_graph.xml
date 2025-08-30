@@ -81,9 +81,6 @@
         android:label="fragment_recipes_list"
         tools:layout="@layout/fragment_recipes_list" >
         <action
-            android:id="@+id/action_recipesListFragment_to_fragmentListCategories"
-            app:destination="@id/fragmentListCategories" />
-        <action
             android:id="@+id/action_recipesListFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
             app:enterAnim="@android:anim/slide_in_left"
@@ -101,7 +98,7 @@
             android:name="Category"
             app:argType="ru.maxx52.androidsprint.model.Category" />
         <action
-            android:id="@+id/action_recipesListFragment_to_fragmentListCategories2"
+            android:id="@+id/action_recipesListFragment_to_fragmentListCategories"
             app:destination="@id/fragmentListCategories"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
