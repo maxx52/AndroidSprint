@@ -7,12 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
 import ru.maxx52.androidsprint.data.STUB
-import ru.maxx52.androidsprint.data.ARG_CATEGORY_ID
-import ru.maxx52.androidsprint.data.ARG_CATEGORY_IMAGE_URL
-import ru.maxx52.androidsprint.data.ARG_CATEGORY_NAME
 import ru.maxx52.androidsprint.model.Category
 import ru.maxx52.androidsprint.ui.categories.CategoriesViewModel
 
@@ -54,12 +50,9 @@ class FragmentListCategories : Fragment() {
     }
 
     fun openRecipesByCategoryId(categoryId: Int) {
-        val category = STUB.getCategories().find { it.id == categoryId } ?: return
-        val bundle = Bundle().apply {
-            putInt(ARG_CATEGORY_ID, category.id)
-            putString(ARG_CATEGORY_NAME, category.title)
-            putString(ARG_CATEGORY_IMAGE_URL, category.imageUrl)
-        }
-        findNavController().navigate(R.id.recipesListFragment, args = bundle)
+        val category = STUB.getCategories().find { it.id == categoryId }
+            ?: throw IllegalArgumentException("Категория с id=$categoryId не найдена.")
+        val directions = FragmentListCategoriesDirections.actionFragmentListCategoriesToRecipesListFragment(category)
+        findNavController().navigate(directions)
     }
 }
