@@ -12,15 +12,18 @@ import com.google.gson.reflect.TypeToken
 import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.databinding.ActivityMainBinding
 import ru.maxx52.androidsprint.model.Category
+import ru.maxx52.androidsprint.model.Recipe
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding
         get() = _binding ?: throw IllegalStateException("Binding не доступен или null")
+    private val threadPool = Executors.newFixedThreadPool(10)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +48,37 @@ class MainActivity : AppCompatActivity() {
                     val reader = BufferedReader(InputStreamReader(connection.inputStream))
                     val content = reader.readLines().joinToString(separator = "\n")
                     reader.close()
+
                     val gson = Gson()
                     val type = object : TypeToken<List<Category>>(){}.type
                     val categories = gson.fromJson<List<Category>>(content, type)
+                    val categoryIds = categories.map { it.id }
 
-                    Log.d("API_RESPONSE", "Список категорий: $categories")
+                    categoryIds.forEach { categoryId ->
+                        threadPool.execute {
+                            val recipesUrl = URL("https://recipes.androidsprint.ru/api/category/$categoryId/recipes")
+                            val recipesConnection = recipesUrl.openConnection() as HttpURLConnection
+                            recipesConnection.requestMethod = "GET"
+                            try {
+                                val recipesResponseCode = recipesConnection.responseCode
+                                if (recipesResponseCode == HttpURLConnection.HTTP_OK) {
+                                    val recipesReader = BufferedReader(InputStreamReader(recipesConnection.inputStream))
+                                    val recipesContent = recipesReader.readLines().joinToString(separator = "\n")
+                                    recipesReader.close()
+
+                                    val recipesGson = Gson()
+                                    val recipesType = object : TypeToken<List<Recipe>>(){}.type
+                                    val recipes = recipesGson.fromJson<List<Recipe>>(recipesContent, recipesType)
+
+                                    Log.d("API_RECIPES_RESPONSE", "Получены рецепты для категории $categoryId:\n${recipes.joinToString { it.title }}")
+                                } else {
+                                    Log.e("API_RECIPES_ERROR", "Ошибка при запросе рецептов для категории $categoryId: Код ответа $recipesResponseCode")
+                                }
+                            } finally {
+                                recipesConnection.disconnect()
+                            }
+                        }
+                    }
                 } else {
                     Log.e("API_ERROR", "Request failed with code: $responseCode")
                 }
