@@ -64,4 +64,5 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:5.1.0"))
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
 }
