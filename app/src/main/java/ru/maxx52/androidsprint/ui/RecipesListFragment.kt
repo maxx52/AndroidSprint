@@ -12,11 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.data.NON_RECIPE
-import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.model.Recipe
+import ru.maxx52.androidsprint.model.RecipesRepository
 import ru.maxx52.androidsprint.ui.recipes.recipelist.RecipesListViewModel
 
 class RecipesListFragment : Fragment() {
+    private val repository = RecipesRepository()
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
     private var categoryId: Int? = null
@@ -63,7 +64,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
-        val recipe = STUB.getRecipesByCategoryId(categoryId ?: -1).find { it.id == recipeId }
+        val recipe = repository.getRecipesByCategoryId(categoryId ?: -1)?.find { it.id == recipeId }
         if (recipe == null) {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
             return
