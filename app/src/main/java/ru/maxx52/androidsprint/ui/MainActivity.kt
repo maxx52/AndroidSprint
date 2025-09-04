@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val threadName = Thread.currentThread().name
         Log.d("LIFECYCLE", "Метод onCreate() выполняется на потоке: $threadName")
 
-        Thread {
+        threadPool.execute {
             val url = URL("https://recipes.androidsprint.ru/api/category")
             val threadName = Thread.currentThread().name
 
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                     reader.close()
 
                     val gson = Gson()
-                    val type = object : TypeToken<List<Category>>(){}.type
+                    val type = object : TypeToken<List<Category>>() {}.type
                     val categories = gson.fromJson<List<Category>>(content, type)
                     val categoryIds = categories.map { it.id }
 
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                                     recipesReader.close()
 
                                     val recipesGson = Gson()
-                                    val recipesType = object : TypeToken<List<Recipe>>(){}.type
+                                    val recipesType = object : TypeToken<List<Recipe>>() {}.type
                                     val recipes = recipesGson.fromJson<List<Recipe>>(recipesContent, recipesType)
 
                                     Log.d("API_RECIPES_RESPONSE", "Получены рецепты для категории $categoryId:\n${recipes.joinToString { it.title }}")
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             } finally {
                 connection.disconnect()
             }
-        }.start()
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

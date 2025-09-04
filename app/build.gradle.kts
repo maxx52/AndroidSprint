@@ -61,4 +61,7 @@ dependencies {
     androidTestImplementation(libs.androidx.navigation.testing)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.gson)
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.1.0"))
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
