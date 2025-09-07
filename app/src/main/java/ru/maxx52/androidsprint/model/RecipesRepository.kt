@@ -1,15 +1,13 @@
 package ru.maxx52.androidsprint.model
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.Retrofit
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.converter.gson.GsonConverterFactory
 
 class RecipesRepository {
     private val baseUrl = "https://recipes.androidsprint.ru/api/"
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     private val recipesApiService: RecipesApiService = retrofit.create(RecipesApiService::class.java)
