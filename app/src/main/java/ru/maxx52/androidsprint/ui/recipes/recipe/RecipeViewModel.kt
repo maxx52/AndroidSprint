@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,11 +15,10 @@ import ru.maxx52.androidsprint.model.Ingredient
 import ru.maxx52.androidsprint.model.Recipe
 import androidx.core.content.edit
 import kotlinx.coroutines.Dispatchers
-import ru.maxx52.androidsprint.model.RecipesRepository
+import ru.maxx52.androidsprint.data.repository
 import java.io.IOException
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = RecipesRepository()
 
     data class RecipeState(
         val recipe: Recipe? = null,
@@ -40,7 +38,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                 val loadedRecipe = repository.getRecipeById(recipeId)
                 if (loadedRecipe == null) {
                     Log.e("!!!", "Recipe with ID $recipeId was not found")
-                    showToast()
                     return@launch
                 }
 
@@ -63,7 +60,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                 Log.d("!!!", "Loaded recipe: ${loadedRecipe.title}, isFavorite: $isFavorite, ingredients size: ${loadedRecipe.ingredients.size}")
             } catch (e: Exception) {
                 Log.e("!!!", "Ошибка загрузки рецепта", e)
-                showToast()
             }
         }
     }
@@ -121,11 +117,5 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     fun updatePortions(newPortions: Int) {
         val currentState = _state.value ?: return
         _state.value = currentState.copy(currentPortions = newPortions)
-    }
-
-    private fun showToast() {
-        viewModelScope.launch(Dispatchers.Main) {
-            Toast.makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
-        }
     }
 }
