@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import ru.maxx52.androidsprint.data.repository
 
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
-    private val _state = MutableLiveData(CategoriesState())
+    private val _state = MutableLiveData<CategoriesState>()
     val state: LiveData<CategoriesState> = _state
 
     fun loadCategories() {
@@ -24,6 +24,11 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
                 Log.e("CATEGORIES_VIEW_MODEL", "Ошибка загрузки категорий", e)
             }
         }
+    }
+
+    fun findCategoryById(categoryId: Int): Category? {
+        val categories = state.value?.categories
+        return categories?.firstOrNull { it.id == categoryId }
     }
 
     data class CategoriesState(

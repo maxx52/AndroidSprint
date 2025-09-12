@@ -12,12 +12,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.data.NON_RECIPE
+import ru.maxx52.androidsprint.data.repository
 import ru.maxx52.androidsprint.model.Recipe
-import ru.maxx52.androidsprint.model.RecipesRepository
 import ru.maxx52.androidsprint.ui.recipes.recipelist.RecipesListViewModel
 
 class RecipesListFragment : Fragment() {
-    private val repository = RecipesRepository()
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("View is not initialized")
     private var categoryId: Int? = null
