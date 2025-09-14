@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.maxx52.androidsprint.databinding.FragmentFavoritesBinding
 import ru.maxx52.androidsprint.data.NON_RECIPE
+import ru.maxx52.androidsprint.data.repository
 import ru.maxx52.androidsprint.model.Recipe
-import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.ui.recipes.favorites.FavoritesViewModel
 
 class FavoritesFragment : Fragment() {
@@ -46,7 +46,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
-        val recipe = STUB.getRecipeById(recipeId)
+        val recipe = repository.getRecipeById(recipeId)
         if (recipe == null) {
             Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
             return

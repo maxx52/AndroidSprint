@@ -11,10 +11,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.maxx52.androidsprint.data.FAVORITES_KEY
 import ru.maxx52.androidsprint.data.PREFS_NAME
-import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.model.Ingredient
 import ru.maxx52.androidsprint.model.Recipe
 import androidx.core.content.edit
+import kotlinx.coroutines.Dispatchers
+import ru.maxx52.androidsprint.data.repository
 import java.io.IOException
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -32,30 +33,34 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int) {
         Log.i("!!!", "Loading recipe with ID: $recipeId")
-        viewModelScope.launch {
-            val loadedRecipe = STUB.getRecipeById(recipeId)
-            if (loadedRecipe == null) {
-                Log.e("!!!", "Recipe with ID $recipeId was not found")
-                return@launch
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val loadedRecipe = repository.getRecipeById(recipeId)
+                if (loadedRecipe == null) {
+                    Log.e("!!!", "Recipe with ID $recipeId was not found")
+                    return@launch
+                }
 
-            val drawable = try {
-                val inputStream = getApplication<Application>().assets.open(loadedRecipe.imageUrl)
-                Drawable.createFromStream(inputStream, null)
-            } catch (e: IOException) {
-                Log.e("!!!", "Failed to load image for recipe with ID $recipeId", e)
-                null
-            }
+                val drawable = try {
+                    val inputStream = getApplication<Application>().assets.open(loadedRecipe.imageUrl)
+                    Drawable.createFromStream(inputStream, null)
+                } catch (e: IOException) {
+                    Log.e("!!!", "Failed to load image for recipe with ID $recipeId", e)
+                    null
+                }
 
-            val isFavorite = getFavorites().contains(recipeId.toString())
-            _state.value = RecipeState(
-                recipe = loadedRecipe,
-                isFavorite = isFavorite,
-                ingredients = loadedRecipe.ingredients,
-                currentPortions = 1,
-                recipeImage = drawable
-            )
-            Log.d("!!!", "Loaded recipe: ${loadedRecipe.title}, isFavorite: $isFavorite, ingredients size: ${loadedRecipe.ingredients.size}")
+                val isFavorite = getFavorites().contains(recipeId.toString())
+                _state.postValue(RecipeState(
+                    recipe = loadedRecipe,
+                    isFavorite = isFavorite,
+                    ingredients = loadedRecipe.ingredients,
+                    currentPortions = 1,
+                    recipeImage = drawable
+                ))
+                Log.d("!!!", "Loaded recipe: ${loadedRecipe.title}, isFavorite: $isFavorite, ingredients size: ${loadedRecipe.ingredients.size}")
+            } catch (e: Exception) {
+                Log.e("!!!", "Ошибка загрузки рецепта", e)
+            }
         }
     }
 
@@ -64,12 +69,14 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun getFavorites(): MutableSet<String> {
-        val sharedPrefs = getApplication<Application>().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val sharedPrefs = getApplication<Application>()
+            .getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         return sharedPrefs.getStringSet(FAVORITES_KEY, emptySet<String>())?.toMutableSet() ?: mutableSetOf()
     }
 
     private fun saveFavorites(updatedFavorites: Set<String>) {
-        val sharedPrefs = getApplication<Application>().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val sharedPrefs = getApplication<Application>()
+            .getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         sharedPrefs.edit { putStringSet(FAVORITES_KEY, updatedFavorites) }
     }
 

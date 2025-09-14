@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.maxx52.androidsprint.databinding.FragmentListCategoriesBinding
-import ru.maxx52.androidsprint.data.STUB
 import ru.maxx52.androidsprint.model.Category
 import ru.maxx52.androidsprint.ui.categories.CategoriesViewModel
 
@@ -50,8 +49,10 @@ class FragmentListCategories : Fragment() {
     }
 
     fun openRecipesByCategoryId(categoryId: Int) {
-        val category = STUB.getCategories().find { it.id == categoryId }
-            ?: throw IllegalArgumentException("Категория с id=$categoryId не найдена.")
+        val category = viewModel.findCategoryById(categoryId)
+        if (category == null) {
+            throw IllegalArgumentException("Категория с id=$categoryId не найдена.")
+        }
         val directions = FragmentListCategoriesDirections.actionFragmentListCategoriesToRecipesListFragment(category)
         findNavController().navigate(directions)
     }
