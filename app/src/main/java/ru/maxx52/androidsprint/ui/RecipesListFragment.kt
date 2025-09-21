@@ -1,18 +1,19 @@
 package ru.maxx52.androidsprint.ui
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
+import com.bumptech.glide.Glide
+import ru.maxx52.androidsprint.R
 import ru.maxx52.androidsprint.data.NON_RECIPE
 import ru.maxx52.androidsprint.data.repository
+import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.model.Recipe
 import ru.maxx52.androidsprint.ui.recipes.recipelist.RecipesListViewModel
 
@@ -38,12 +39,10 @@ class RecipesListFragment : Fragment() {
             categoryImageUrl = it.Category.imageUrl
         }
 
-        try {
-            val drawable = Drawable.createFromStream(requireContext().assets.open(categoryImageUrl ?: ""), null)
-            binding.ivRecipe.setImageDrawable(drawable)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        Glide.with(requireContext())
+            .load(categoryImageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .into(binding.ivRecipe)
 
         binding.tvTitleRecipe.text = categoryName
         viewModel.state.observe(viewLifecycleOwner) { newState ->
