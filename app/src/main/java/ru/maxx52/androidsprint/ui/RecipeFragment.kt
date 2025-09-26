@@ -75,7 +75,7 @@ class RecipeFragment : Fragment() {
                 }
 
                 val drawable = newState.recipeImageUrl
-                val completeImageUrl = "$IMAGE_BASE_URL${newState.recipeImageUrl}"
+                val completeImageUrl = "$IMAGE_BASE_URL$drawable"
                 if (drawable != null) {
                     Glide.with(this)
                         .load(completeImageUrl)

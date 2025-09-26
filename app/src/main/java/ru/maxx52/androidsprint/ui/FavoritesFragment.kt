@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import ru.maxx52.androidsprint.databinding.FragmentFavoritesBinding
-import ru.maxx52.androidsprint.data.NON_RECIPE
-import ru.maxx52.androidsprint.data.repository
 import ru.maxx52.androidsprint.model.Recipe
 import ru.maxx52.androidsprint.ui.recipes.favorites.FavoritesViewModel
 
@@ -40,20 +37,9 @@ class FavoritesFragment : Fragment() {
 
         adapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {
-                openRecipeByRecipeId(recipeId)
+                viewModel.openRecipeByRecipeId(recipeId, requireActivity() as AppCompatActivity, this@FavoritesFragment)
             }
         })
-    }
-
-    private fun openRecipeByRecipeId(recipeId: Int) {
-        val recipe = repository.getRecipeById(recipeId)
-        if (recipe == null) {
-            Toast.makeText(requireContext(), NON_RECIPE, Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val directions = FavoritesFragmentDirections.actionFavoritesFragmentToRecipeFragment(recipeId)
-        findNavController().navigate(directions)
     }
 
     override fun onDestroyView() {

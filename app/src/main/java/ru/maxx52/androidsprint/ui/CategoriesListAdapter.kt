@@ -42,6 +42,7 @@ class CategoriesListAdapter(private val dataSet: List<Category>):
         Glide.with(viewHolder.imageView.context)
             .load(completeImageUrl)
             .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
             .into(viewHolder.imageView)
 
         viewHolder.itemView.setOnClickListener {
