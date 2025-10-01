@@ -12,7 +12,6 @@ import ru.maxx52.androidsprint.data.repository
 import ru.maxx52.androidsprint.model.Recipe
 
 class RecipesListViewModel(application: Application) : AndroidViewModel(application) {
-
     private val _state = MutableLiveData(RecipesListState())
     val state: LiveData<RecipesListState> = _state
 
