@@ -2,7 +2,6 @@ package ru.maxx52.androidsprint.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -15,20 +14,19 @@ import ru.maxx52.androidsprint.model.Ingredient
 import ru.maxx52.androidsprint.model.Recipe
 import androidx.core.content.edit
 import kotlinx.coroutines.Dispatchers
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.data.repository
-import java.io.IOException
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
-
     data class RecipeState(
         val recipe: Recipe? = null,
         val currentPortions: Int = 1,
         val ingredients: List<Ingredient> = emptyList(),
         val isFavorite: Boolean = false,
-        val recipeImage: Drawable? = null
+        val recipeImageUrl: String? = null
     )
 
-    private val _state = MutableLiveData(RecipeState())
+    private val _state = MutableLiveData<RecipeState>()
     val state: LiveData<RecipeState> = _state
 
     fun loadRecipe(recipeId: Int) {
@@ -41,21 +39,14 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                     return@launch
                 }
 
-                val drawable = try {
-                    val inputStream = getApplication<Application>().assets.open(loadedRecipe.imageUrl)
-                    Drawable.createFromStream(inputStream, null)
-                } catch (e: IOException) {
-                    Log.e("!!!", "Failed to load image for recipe with ID $recipeId", e)
-                    null
-                }
-
                 val isFavorite = getFavorites().contains(recipeId.toString())
+                val completeImageUrl = "$BASE_URL${loadedRecipe.imageUrl}"
                 _state.postValue(RecipeState(
                     recipe = loadedRecipe,
                     isFavorite = isFavorite,
                     ingredients = loadedRecipe.ingredients,
                     currentPortions = 1,
-                    recipeImage = drawable
+                    recipeImageUrl = completeImageUrl
                 ))
                 Log.d("!!!", "Loaded recipe: ${loadedRecipe.title}, isFavorite: $isFavorite, ingredients size: ${loadedRecipe.ingredients.size}")
             } catch (e: Exception) {

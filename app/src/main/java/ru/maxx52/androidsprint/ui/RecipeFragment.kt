@@ -14,7 +14,9 @@ import ru.maxx52.androidsprint.databinding.FragmentRecipeBinding
 import ru.maxx52.androidsprint.data.NON_RECIPE
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import ru.maxx52.androidsprint.R
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.ui.recipes.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -72,11 +74,13 @@ class RecipeFragment : Fragment() {
                     viewModel.onFavoritesClicked()
                 }
 
-                val drawable = newState.recipeImage
+                val drawable = newState.recipeImageUrl
+                val completeImageUrl = "$BASE_URL$drawable"
                 if (drawable != null) {
-                    binding.ivRecipeImage.setImageDrawable(drawable)
-                } else {
-                    binding.ivRecipeImage.setImageDrawable(null)
+                    Glide.with(this)
+                        .load(completeImageUrl)
+                        .placeholder(R.drawable.img_placeholder)
+                        .into(binding.ivRecipeImage)
                 }
             } else {
                 binding.tvRecipeTitle.text = ""

@@ -1,18 +1,18 @@
 package ru.maxx52.androidsprint.ui
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.maxx52.androidsprint.R
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.model.Category
 
 class CategoriesListAdapter(private val dataSet: List<Category>):
     RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
-
     var itemClickListener: OnItemClickListener? = null
 
     fun setOnItemClickListener(listener: OnItemClickListener) { itemClickListener = listener }
@@ -38,13 +38,12 @@ class CategoriesListAdapter(private val dataSet: List<Category>):
         viewHolder.titleTextView.text = category.title
         viewHolder.descriptionTextView.text = category.description
 
-        try {
-            val drawable = Drawable.createFromStream(viewHolder.imageView.context.assets
-                .open(category.imageUrl), null)
-            viewHolder.imageView.setImageDrawable(drawable)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        val completeImageUrl = "$BASE_URL${category.imageUrl}"
+        Glide.with(viewHolder.imageView.context)
+            .load(completeImageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
+            .into(viewHolder.imageView)
 
         viewHolder.itemView.setOnClickListener {
             itemClickListener?.onItemClick(category.id)
