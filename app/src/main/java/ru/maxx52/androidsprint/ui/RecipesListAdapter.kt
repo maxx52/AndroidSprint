@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.maxx52.androidsprint.R
-import ru.maxx52.androidsprint.data.IMAGE_BASE_URL
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.model.Recipe
 import ru.maxx52.androidsprint.databinding.ItemRecipeBinding
 
@@ -33,7 +33,7 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
         holder.binding.tvRecipeTitleItem.text = recipe.title
 
         try {
-            val completeImageUrl = "$IMAGE_BASE_URL${recipe.imageUrl}"
+            val completeImageUrl = "$BASE_URL${recipe.imageUrl}"
             val imageView = holder.binding.ivRecipeItemImage
             Glide.with(imageView.context)
                 .load(completeImageUrl)
@@ -45,9 +45,9 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
         }
 
         holder.binding.root.setOnClickListener {
-            itemClickListener?.onItemClick(recipe.id)
+            recipe.id.let { recipeId -> itemClickListener?.onItemClick(recipeId) }
         }
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount(): Int = dataSet.size
 }

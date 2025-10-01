@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.maxx52.androidsprint.R
-import ru.maxx52.androidsprint.data.IMAGE_BASE_URL
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.model.Category
 
 class CategoriesListAdapter(private val dataSet: List<Category>):
@@ -38,7 +38,7 @@ class CategoriesListAdapter(private val dataSet: List<Category>):
         viewHolder.titleTextView.text = category.title
         viewHolder.descriptionTextView.text = category.description
 
-        val completeImageUrl = "$IMAGE_BASE_URL${category.imageUrl}"
+        val completeImageUrl = "$BASE_URL${category.imageUrl}"
         Glide.with(viewHolder.imageView.context)
             .load(completeImageUrl)
             .placeholder(R.drawable.img_placeholder)

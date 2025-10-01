@@ -14,7 +14,7 @@ import ru.maxx52.androidsprint.model.Ingredient
 import ru.maxx52.androidsprint.model.Recipe
 import androidx.core.content.edit
 import kotlinx.coroutines.Dispatchers
-import ru.maxx52.androidsprint.data.IMAGE_BASE_URL
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.data.repository
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -40,7 +40,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                 }
 
                 val isFavorite = getFavorites().contains(recipeId.toString())
-                val completeImageUrl = "$IMAGE_BASE_URL${loadedRecipe.imageUrl}"
+                val completeImageUrl = "$BASE_URL${loadedRecipe.imageUrl}"
                 _state.postValue(RecipeState(
                     recipe = loadedRecipe,
                     isFavorite = isFavorite,

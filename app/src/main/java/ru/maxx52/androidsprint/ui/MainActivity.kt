@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.maxx52.androidsprint.R
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.databinding.ActivityMainBinding
 import ru.maxx52.androidsprint.model.Category
 import ru.maxx52.androidsprint.model.Recipe
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("LIFECYCLE", "Метод onCreate() выполняется на потоке: $threadName")
 
         threadPool.execute {
-            val url = URL("https://recipes.androidsprint.ru/api/category")
+            val url = URL("${BASE_URL}/category")
             val threadName = Thread.currentThread().name
 
             Log.d("NETWORK_REQUEST", "Выполняю запрос на потоке: $threadName")
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
                     categoryIds.forEach { categoryId ->
                         threadPool.execute {
-                            val recipesUrl = URL("https://recipes.androidsprint.ru/api/category/$categoryId/recipes")
+                            val recipesUrl = URL("$BASE_URL/category/$categoryId/recipes")
                             val recipesConnection = recipesUrl.openConnection() as HttpURLConnection
                             recipesConnection.requestMethod = "GET"
                             try {

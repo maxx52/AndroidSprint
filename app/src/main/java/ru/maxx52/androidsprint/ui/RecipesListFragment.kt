@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import ru.maxx52.androidsprint.R
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.databinding.FragmentRecipesListBinding
 import ru.maxx52.androidsprint.model.Recipe
 import ru.maxx52.androidsprint.ui.recipes.recipelist.RecipesListViewModel
@@ -37,7 +38,7 @@ class RecipesListFragment : Fragment() {
         }
 
         Glide.with(requireContext())
-            .load(categoryImageUrl)
+            .load("$BASE_URL$categoryImageUrl")
             .placeholder(R.drawable.img_placeholder)
             .error(R.drawable.img_error)
             .into(binding.ivRecipe)

@@ -16,7 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import ru.maxx52.androidsprint.R
-import ru.maxx52.androidsprint.data.IMAGE_BASE_URL
+import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.ui.recipes.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -75,7 +75,7 @@ class RecipeFragment : Fragment() {
                 }
 
                 val drawable = newState.recipeImageUrl
-                val completeImageUrl = "$IMAGE_BASE_URL$drawable"
+                val completeImageUrl = "$BASE_URL$drawable"
                 if (drawable != null) {
                     Glide.with(this)
                         .load(completeImageUrl)
