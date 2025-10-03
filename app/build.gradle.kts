@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
-    id("androidx.navigation.safeargs.kotlin") version "2.9.3"
+    id("androidx.navigation.safeargs.kotlin") version "2.9.5"
     id("kotlin-kapt")
 }
 
@@ -70,4 +70,5 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.glide)
     kapt(libs.compiler)
+    implementation(libs.kotlinx.coroutines.android)
 }
