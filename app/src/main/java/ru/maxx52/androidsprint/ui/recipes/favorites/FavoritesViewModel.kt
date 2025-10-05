@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.maxx52.androidsprint.data.FAVORITES_KEY
 import ru.maxx52.androidsprint.data.NON_RECIPE
@@ -20,7 +19,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val state: LiveData<FavoritesState> = _state
 
     fun loadFavoriteRecipes() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
                 val favoritesSet = getFavorites()
                 val favoritesIds = favoritesSet.mapNotNull { it.toIntOrNull() }.toSet()
@@ -39,7 +38,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun openRecipeByRecipeId(recipeId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
                 val recipe = repository.getRecipeById(recipeId)
                 if (recipe != null) {
