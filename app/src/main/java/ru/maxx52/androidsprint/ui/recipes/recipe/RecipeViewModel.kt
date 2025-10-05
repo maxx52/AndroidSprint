@@ -31,7 +31,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int) {
         Log.i("!!!", "Loading recipe with ID: $recipeId")
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
                 val loadedRecipe = repository.getRecipeById(recipeId)
                 if (loadedRecipe == null) {
