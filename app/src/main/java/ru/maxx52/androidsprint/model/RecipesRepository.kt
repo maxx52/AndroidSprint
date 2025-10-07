@@ -1,19 +1,18 @@
 package ru.maxx52.androidsprint.model
 
-import android.app.Application
+import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.data.DATABASE_NAME
-import androidx.room.Room
 import ru.maxx52.androidsprint.ui.categories.CategoriesDao
 
-class RecipesRepository(application: Application) {
+class RecipesRepository() {
     private val db: AppDatabase by lazy {
         Room.databaseBuilder(
-            application.applicationContext,
+            RecipeApplication.instance.applicationContext,
             AppDatabase::class.java,
             DATABASE_NAME
         ).build()
@@ -56,6 +55,12 @@ class RecipesRepository(application: Application) {
     suspend fun getCategoriesFromCache(): List<Category> {
         return withContext(Dispatchers.IO) {
             categoriesDao.getAllCategories()
+        }
+    }
+
+    suspend fun addCategories(categories: List<Category>) {
+        withContext(Dispatchers.IO) {
+            categoriesDao.insertCategories(categories)
         }
     }
 }
