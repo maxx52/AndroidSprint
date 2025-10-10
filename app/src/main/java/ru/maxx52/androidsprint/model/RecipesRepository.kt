@@ -7,10 +7,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.maxx52.androidsprint.data.BASE_URL
 import ru.maxx52.androidsprint.data.DATABASE_NAME
-import ru.maxx52.androidsprint.ui.categories.CategoriesDao
 
 class RecipesRepository() {
-    private val db: AppDatabase by lazy {
+    private val db by lazy {
         Room.databaseBuilder(
             RecipeApplication.instance.applicationContext,
             AppDatabase::class.java,
@@ -18,7 +17,7 @@ class RecipesRepository() {
         ).build()
     }
 
-    private val categoriesDao: CategoriesDao = db.categoriesDao()
+    private val categoriesDao by lazy { db.categoriesDao() }
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
 @Serializable
 @Parcelize
 data class Category(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: Int,
     val title: String,
     val description: String,
