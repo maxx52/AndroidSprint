@@ -19,7 +19,7 @@ navigationFragmentKtx = "2.9.5"
 androidx-nav-version = "2.9.5"
 kotlinx-serialization-json = "1.9.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
-roomVersion = "2.8.1"
+roomVersion = "2.8.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.17.0" }
