@@ -14,7 +14,8 @@ class RecipesRepository() {
             RecipeApplication.instance.applicationContext,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).build()
+        ).addMigrations(DB_MIGRATION_1_2)
+            .build()
     }
 
     private val categoriesDao by lazy { db.categoriesDao() }

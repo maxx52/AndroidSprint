@@ -17,16 +17,8 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
     fun loadRecipesByCategory(categoryId: Int) {
         viewModelScope.launch {
             try {
-                val cachedRecipes = repository.getRecipesByCategoryId(categoryId)
-                if (cachedRecipes != null) {
-                    _state.postValue(RecipesListState(recipes = cachedRecipes))
-                } else {
-                    val freshRecipes = repository.getFreshRecipesByCategoryId(categoryId)
-                    freshRecipes?.let {
-                        repository.cacheRecipes(it)
-                        _state.postValue(RecipesListState(recipes = it))
-                    }
-                }
+                val cachedRecipes = repository.getRecipesByCategoryIdFromCache(categoryId)
+                _state.postValue(RecipesListState(recipes = cachedRecipes))
             } catch (e: Exception) {
                 Log.e("RECIPES_LIST_VIEW_MODEL", "Ошибка загрузки рецептов", e)
             }
