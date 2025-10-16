@@ -14,10 +14,12 @@ class RecipesRepository() {
             RecipeApplication.instance.applicationContext,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).build()
+        ).addMigrations(DB_MIGRATION_1_2)
+            .build()
     }
 
     private val categoriesDao by lazy { db.categoriesDao() }
+    private val recipesDao by lazy { db.recipesDao() }
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -60,6 +62,30 @@ class RecipesRepository() {
     suspend fun addCategories(categories: List<Category>) {
         withContext(Dispatchers.IO) {
             categoriesDao.insertCategories(categories)
+        }
+    }
+
+    suspend fun getRecipesByCategoryIdFromCache(categoryId: Int): List<Recipe> {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getRecipesByCategoryId(categoryId)
+        }
+    }
+
+    suspend fun cacheRecipes(recipes: List<Recipe>) {
+        withContext(Dispatchers.IO) {
+            recipesDao.insertRecipes(recipes)
+        }
+    }
+
+    suspend fun clearCachedRecipesForCategory(categoryId: Int) {
+        withContext(Dispatchers.IO) {
+            recipesDao.clearRecipesForCategory(categoryId)
+        }
+    }
+
+    suspend fun getFreshRecipesByCategoryId(categoryId: Int): List<Recipe>? {
+        return withContext(Dispatchers.IO) {
+            runCatching { recipeApiService.getRecipesByCategoryId(categoryId) }.getOrNull()
         }
     }
 }
