@@ -14,7 +14,7 @@ class RecipesRepository() {
             RecipeApplication.instance.applicationContext,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).addMigrations(DB_MIGRATION_1_2)
+        ).addMigrations(DB_MIGRATION_2_3)
             .build()
     }
 
@@ -86,6 +86,12 @@ class RecipesRepository() {
     suspend fun getFreshRecipesByCategoryId(categoryId: Int): List<Recipe>? {
         return withContext(Dispatchers.IO) {
             runCatching { recipeApiService.getRecipesByCategoryId(categoryId) }.getOrNull()
+        }
+    }
+
+    suspend fun getFavoriteRecipes(): List<Recipe> {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getFavoriteRecipes()
         }
     }
 }
