@@ -19,4 +19,7 @@ interface RecipesDao {
 
     @Query("DELETE FROM recipes WHERE categoryId = :categoryId")
     suspend fun clearRecipesForCategory(categoryId: Int)
+
+    @Query("SELECT * FROM recipes WHERE isFavorite = 1")
+    suspend fun getFavoriteRecipes(): List<Recipe>
 }
